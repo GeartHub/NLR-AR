@@ -19,21 +19,26 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Autoresizing is the automatic contraints of Apple, we dont want that.
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Setup of sceneView
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         self.sceneView.showsStatistics = true
         self.sceneView.autoenablesDefaultLighting = true
         self.sceneView.automaticallyUpdatesLighting = true
         self.sceneView.delegate = self
-        // Do any additional setup after loading the view.
+        
+        // Adding the items to the View
         view.addSubview(sceneView)
         view.addSubview(messageLabel)
+        
         restartSession()
         setupConstraints()
     }
     
+    /// Setup of the contraints fot this viewcontroller. This is the placement of the items.
     private func setupConstraints() {
         // sceneViewConstraints
         NSLayoutConstraint.activate([
@@ -44,13 +49,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         ])
         
         // messageLabelConstraints
-        
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             messageLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
     }
     
+    /// This function restarts the AR session so everything is ready to go again.
     private func restartSession() {
         
         guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
@@ -64,34 +69,36 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-            if let objectAchnor = anchor as? ARObjectAnchor {
-                guard let objectName = objectAchnor.referenceObject.name else { return }
-                DispatchQueue.main.async {
-                    self.messageLabel.text = ("Detected image “\(objectName)”")
-                }
-            }
+        var nameScannedObject = ""
+        if let objectAchnor = anchor as? ARObjectAnchor {
+            guard let objectName = objectAchnor.referenceObject.name else { return }
+            nameScannedObject = objectName
+        }
+        
+        if let imageAnchor = anchor as? ARImageAnchor {
             
-            guard let imageAnchor = anchor as? ARImageAnchor else { return }
             let referenceImage = imageAnchor.referenceImage
+            guard let imageName = referenceImage.name else { return }
+            nameScannedObject = imageName
             updateQueue.async {
                 
-                let imageName = referenceImage.name ?? ""
+                self.messageLabel.text = ("Detected image “\(nameScannedObject)”")
                 
-                if imageName == "Windmill" {
-                    let windmill = SCNScene(named: "windmill.scn")!
-                    let windmillNode = windmill.rootNode.childNode(withName: "windmill", recursively: false)!
-                
-                    node.addChildNode(windmillNode)
-                    let turningPoint = windmillNode.childNode(withName: "holderParent", recursively: true)
-                    let turningAction = self.rotation(time: 4)
-                    turningPoint?.runAction(turningAction)
-                } else if imageName == "Transformator" {
-                    let transformator = SCNScene(named: "transformator.scn")!
-                    let transformatorNode = transformator.rootNode.childNode(withName: "transformator", recursively: false)!
-                    transformatorNode.scale = SCNVector3(0.00015, 0.00015, 0.00015)
-                    
-                    node.addChildNode(transformatorNode)
-                }
+    //                if imageName == "Windmill" {
+    //                    let windmill = SCNScene(named: "windmill.scn")!
+    //                    let windmillNode = windmill.rootNode.childNode(withName: "windmill", recursively: false)!
+    //
+    //                    node.addChildNode(windmillNode)
+    //                    let turningPoint = windmillNode.childNode(withName: "holderParent", recursively: true)
+    //                    let turningAction = self.rotation(time: 4)
+    //                    turningPoint?.runAction(turningAction)
+    //                } else if imageName == "Transformator" {
+    //                    let transformator = SCNScene(named: "transformator.scn")!
+    //                    let transformatorNode = transformator.rootNode.childNode(withName: "transformator", recursively: false)!
+    //                    transformatorNode.scale = SCNVector3(0.00015, 0.00015, 0.00015)
+    //
+    //                    node.addChildNode(transformatorNode)
+    //                }
                 // Create a plane to visualize the initial position of the detected image.
                 let plane = SCNPlane(width: referenceImage.physicalSize.width,
                                      height: referenceImage.physicalSize.height)
@@ -139,6 +146,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     //            node.addChildNode(textNode)
             }
         }
+    }
     private func rotation(time: TimeInterval) -> SCNAction {
         let action = SCNAction.rotateBy(x: CGFloat(360.degreesToRadians), y: 0, z: 0, duration: time)
         let foreverAction = SCNAction.repeatForever(action)
