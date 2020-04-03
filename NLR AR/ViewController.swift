@@ -81,8 +81,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             guard let imageName = referenceImage.name else { return }
             nameScannedObject = imageName
             updateQueue.async {
+                DispatchQueue.main.async {
+                    self.messageLabel.text = ("Detected image “\(nameScannedObject)”")
+                }
                 
-                self.messageLabel.text = ("Detected image “\(nameScannedObject)”")
+                
                 
     //                if imageName == "Windmill" {
     //                    let windmill = SCNScene(named: "windmill.scn")!
