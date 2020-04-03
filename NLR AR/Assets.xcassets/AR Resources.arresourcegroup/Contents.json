@@ -1,0 +1,17 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "resources" : [
+    {
+      "filename" : "Scan_11-47-20.arobject"
+    },
+    {
+      "filename" : "Transformator.arreferenceimage"
+    },
+    {
+      "filename" : "Windmill.arreferenceimage"
+    }
+  ]
+}
