@@ -83,8 +83,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             updateQueue.async {
                 DispatchQueue.main.async {
                     self.messageLabel.text = ("Detected image “\(nameScannedObject)”")
-                    
-                    print("Geart is cool")
                 }
                 
                 
