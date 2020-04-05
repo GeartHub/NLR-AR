@@ -31,6 +31,7 @@ class WelcomeViewController: UIViewController {
         self.continueButton.setTitle("Continue", for: .normal)
         self.continueButton.setTitleColor(UIColor.systemBlue, for: .normal)
         self.continueButton.addTarget(self, action: #selector(goToMainView), for: .touchUpInside)
+        self.continueButton.contentEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 50,right: 0)
         
         
         // Adding items to the View
