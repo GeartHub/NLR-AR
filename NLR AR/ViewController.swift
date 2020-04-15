@@ -108,6 +108,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         if let objectAchnor = anchor as? ARObjectAnchor {
             guard let objectName = objectAchnor.referenceObject.name else { return }
             nameScannedObject = objectName
+            
+            
+            
+            
         }
         
         if let imageAnchor = anchor as? ARImageAnchor {
@@ -124,15 +128,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                 
                 
                 
-    //                if imageName == "Windmill" {
-    //                    let windmill = SCNScene(named: "windmill.scn")!
-    //                    let windmillNode = windmill.rootNode.childNode(withName: "windmill", recursively: false)!
-    //
-    //                    node.addChildNode(windmillNode)
-    //                    let turningPoint = windmillNode.childNode(withName: "holderParent", recursively: true)
-    //                    let turningAction = self.rotation(time: 4)
-    //                    turningPoint?.runAction(turningAction)
-    //                } else if imageName == "Transformator" {
+                    if imageName == "Windmill" {
+                        guard let f16Scene = SCNScene(named: "F-16D.scn") else { return }
+                        guard let f16Object = f16Scene.rootNode.childNode(withName: "Plane", recursively: true) else { return }
+                        f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
+                        
+                        node.addChildNode(f16Object)
+                    }
+//                    else if imageName == "Transformator" {
     //                    let transformator = SCNScene(named: "transformator.scn")!
     //                    let transformatorNode = transformator.rootNode.childNode(withName: "transformator", recursively: false)!
     //                    transformatorNode.scale = SCNVector3(0.00015, 0.00015, 0.00015)
@@ -200,14 +203,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         let currentPositionOfCamera = orientation + location
         DispatchQueue.main.async {
             if self.drawButton.isHighlighted {
-                let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.02))
+                let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.0075))
                 sphereNode.position = currentPositionOfCamera
                 scene.rootNode.addChildNode(sphereNode)
                 sphereNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                 sphereNode.name = "sphere"
             }
             else {
-                let pointer = SCNNode(geometry: SCNSphere(radius: 0.01))
+                let pointer = SCNNode(geometry: SCNSphere(radius: 0.005))
                 pointer.name = "pointer"
                 pointer.position = currentPositionOfCamera
                 scene.rootNode.enumerateChildNodes({ (node, _) in
@@ -219,7 +222,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                 pointer.geometry?.firstMaterial?.diffuse.contents = UIColor.red
 
             }
-
         }
     }
 
