@@ -63,15 +63,13 @@ class WelcomeViewController: UIViewController {
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 197),
-            imageView.widthAnchor.constraint(equalToConstant: 150),
-            imageView.bottomAnchor.constraint(equalTo: welcomeLabel.topAnchor, constant: -20),
-            
+            imageView.widthAnchor.constraint(equalToConstant: 150)
         ])
         // welcomeLabelConstraints
         NSLayoutConstraint.activate([
             welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             welcomeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
-            welcomeLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor)
+            welcomeLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20)
         ])
         
         //continueButtonConstraints
