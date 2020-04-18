@@ -21,8 +21,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     var resetButton = UIButton()
     
+    var f16Object: SCNNode!
+    
+    var test: ARSCNView!
+    
+    var randobool: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
         // Autoresizing is the automatic contraints of Apple, we dont want that.
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +44,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         // Setup of resetButton
         self.resetButton.setTitleColor(.systemBlue, for: .normal)
         self.resetButton.setTitle("Restart", for: .normal)
-        self.resetButton.addTarget(self, action: #selector(restartSession), for: .touchUpInside)
+        
+        self.resetButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
         
         // Setup of sceneView
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
@@ -52,6 +61,35 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         
         restartSession()
         setupConstraints()
+//        if randobool == true {
+            loadSession()
+//        } else {
+//            guard let f16Scene = SCNScene(named: "F-16D.scn") else { return }
+//            guard let f16Object = f16Scene.rootNode.childNode(withName: "Plane", recursively: true) else { return }
+//            self.f16Object = f16Object
+//        }
+    }
+    
+    @objc
+    func saveSession() {
+        
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: f16Object!, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "SavedPlane")
+            randobool = true
+        }
+        
+        restartSession()
+        
+    }
+    
+    func loadSession() {
+        let defaults = UserDefaults.standard
+        if let savedSession = defaults.object(forKey: "SavedPlane") as? Data {
+            if let decodedSession = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedSession) as? SCNNode {
+                f16Object = decodedSession
+            }
+        }
     }
     
     /// Setup of the contraints fot this viewcontroller. This is the placement of the items.
@@ -108,10 +146,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         if let objectAchnor = anchor as? ARObjectAnchor {
             guard let objectName = objectAchnor.referenceObject.name else { return }
             nameScannedObject = objectName
-            
-            
-            
-            
         }
         
         if let imageAnchor = anchor as? ARImageAnchor {
@@ -129,11 +163,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                 
                 
                     if imageName == "Windmill" {
-                        guard let f16Scene = SCNScene(named: "F-16D.scn") else { return }
-                        guard let f16Object = f16Scene.rootNode.childNode(withName: "Plane", recursively: true) else { return }
-                        f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
                         
-                        node.addChildNode(f16Object)
+                        self.f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
+                        
+                        node.addChildNode(self.f16Object)
                     }
 //                    else if imageName == "Transformator" {
     //                    let transformator = SCNScene(named: "transformator.scn")!
@@ -203,13 +236,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         let currentPositionOfCamera = orientation + location
         DispatchQueue.main.async {
             if self.drawButton.isHighlighted {
-                let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.0075))
+                let sphereNode = SCNNode(geometry: SCNSphere(radius: 1))
                 sphereNode.position = currentPositionOfCamera
-                scene.rootNode.addChildNode(sphereNode)
+                self.f16Object.addChildNode(sphereNode)
                 sphereNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                 sphereNode.name = "sphere"
-            }
-            else {
+            } else {
                 let pointer = SCNNode(geometry: SCNSphere(radius: 0.005))
                 pointer.name = "pointer"
                 pointer.position = currentPositionOfCamera
