@@ -30,6 +30,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.sceneView.automaticallyUpdatesLighting = true
         self.sceneView.delegate = self
         
+        self.title = "World tracking"
+        
         // Adding the items to the View
         view.addSubview(sceneView)
         view.addSubview(messageLabel)
