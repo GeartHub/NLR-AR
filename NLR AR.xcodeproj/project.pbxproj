@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC405DE244B707E00861A14 /* WelcomeViewController.swift */; };
 		DACF002C243645120080D201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002B243645120080D201 /* AppDelegate.swift */; };
 		DACF002E243645120080D201 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002D243645120080D201 /* SceneDelegate.swift */; };
 		DACF0030243645120080D201 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002F243645120080D201 /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DAC405DE244B707E00861A14 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		DACF0028243645120080D201 /* NLR AR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NLR AR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACF002B243645120080D201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DACF002D243645120080D201 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		DACF002A243645120080D201 /* NLR AR */ = {
 			isa = PBXGroup;
 			children = (
+				DAC405DE244B707E00861A14 /* WelcomeViewController.swift */,
 				DACF002B243645120080D201 /* AppDelegate.swift */,
 				DACF002D243645120080D201 /* SceneDelegate.swift */,
 				DACF002F243645120080D201 /* ViewController.swift */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DACF0030243645120080D201 /* ViewController.swift in Sources */,
+				DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */,
 				DACF0036243645120080D201 /* NLR_AR.xcdatamodeld in Sources */,
 				DACF002C243645120080D201 /* AppDelegate.swift in Sources */,
 				DACF002E243645120080D201 /* SceneDelegate.swift in Sources */,
