@@ -16,10 +16,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     var sceneView = ARSCNView()
     
     var messageLabel = UILabel()
-    
     var drawButton = UIButton()
-    
     var resetButton = UIButton()
+    var saveButton = UIButton()
     
     var f16Object: SCNNode!
     
@@ -36,6 +35,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
         self.drawButton.translatesAutoresizingMaskIntoConstraints = false
         self.resetButton.translatesAutoresizingMaskIntoConstraints = false
+        self.saveButton.translatesAutoresizingMaskIntoConstraints = false
         
         // Setup of draw button
         self.drawButton.setTitleColor(.systemBlue, for: .normal)
@@ -44,8 +44,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         // Setup of resetButton
         self.resetButton.setTitleColor(.systemBlue, for: .normal)
         self.resetButton.setTitle("Restart", for: .normal)
+        self.resetButton.addTarget(self, action: #selector(restartSession), for: .touchUpInside)
         
-        self.resetButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
+        // Setup of draw button
+        self.saveButton.setTitleColor(.systemBlue, for: .normal)
+        self.saveButton.setTitle("Save", for: .normal)
+        self.saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
+        
         
         // Setup of sceneView
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
@@ -58,6 +63,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         view.addSubview(messageLabel)
         view.addSubview(drawButton)
         view.addSubview(resetButton)
+        view.addSubview(saveButton)
         
         restartSession()
         setupConstraints()
@@ -78,8 +84,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             defaults.set(savedData, forKey: "SavedPlane")
             randobool = true
         }
-        
-        restartSession()
         
     }
     
@@ -118,6 +122,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         NSLayoutConstraint.activate([
             resetButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             resetButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20)
+        ])
+        
+        //resetButtonConstraints
+        NSLayoutConstraint.activate([
+            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            saveButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
         ])
     }
     
