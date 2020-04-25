@@ -67,31 +67,40 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         
         restartSession()
         setupConstraints()
+        registerGestureRecognizers()
 //        if randobool == true {
-            loadSession()
+//            loadSession()
 //        } else {
-//            guard let f16Scene = SCNScene(named: "F-16D.scn") else { return }
-//            guard let f16Object = f16Scene.rootNode.childNode(withName: "Plane", recursively: true) else { return }
-//            self.f16Object = f16Object
+            guard let f16Scene = SCNScene(named: "F-16D.scn") else { return }
+            guard let f16Object = f16Scene.rootNode.childNode(withName: "Plane", recursively: true) else { return }
+            self.f16Object = f16Object
+        self.f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
+        self.f16Object.name = "F-16"
 //        }
     }
     
     @objc
     func saveSession() {
         
-        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: f16Object!, requiringSecureCoding: false) {
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: sceneView.scene, requiringSecureCoding: false) {
             let defaults = UserDefaults.standard
-            defaults.set(savedData, forKey: "SavedPlane")
-            randobool = true
+            defaults.set(savedData, forKey: "SavedScene")
+            debugPrint("Saving plane")
         }
         
     }
     
+    
+    func registerGestureRecognizers() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        self.sceneView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
     func loadSession() {
         let defaults = UserDefaults.standard
-        if let savedSession = defaults.object(forKey: "SavedPlane") as? Data {
-            if let decodedSession = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedSession) as? SCNNode {
-                f16Object = decodedSession
+        if let savedSession = defaults.object(forKey: "SavedScene") as? Data {
+            if let decodedSession = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedSession) as? SCNScene {
+                sceneView.scene = decodedSession
             }
         }
     }
@@ -129,6 +138,41 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             saveButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
         ])
+    }
+    
+    func addItem(hitTestResult: ARHitTestResult) {
+        let node = SCNNode(geometry: SCNSphere(radius: 1))
+        let transform = hitTestResult.worldTransform
+        let thirdColumn = transform.columns.3
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        node.name = "sphere"
+        node.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
+        
+        self.sceneView.scene.rootNode.addChildNode(node)
+        
+    }
+    
+    @objc
+    func tapped(sender: UITapGestureRecognizer) {
+//        let tappedSceneView = sender.view as! ARSCNView
+        let tappedLocation = sender.location(in: sceneView)
+        let hitTest = sceneView.hitTest(tappedLocation, types: .featurePoint)
+        if !hitTest.isEmpty {
+            let result = hitTest.first!
+//            let node = result.node
+                print(result.worldTransform.columns.3)
+//            let node2 = SCNNode(geometry: SCNSphere(radius: 1))
+//            let transform = result.modelTransform
+//            node2.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+//            node2.name = "sphere"
+//            node2.position = SCNVector3(tappedLocation.x/100, tappedLocation.y/100, 1.0)
+//            print(node2.position)
+//
+//            f16Object.addChildNode(node2)
+            
+        } else {
+            print("nope")
+        }
     }
     
     /// This function restarts the AR session so everything is ready to go again.
@@ -170,13 +214,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                     print("Geart is cool")
                 }
                 
+                print(anchor.transform.columns)
                 
                 
                     if imageName == "Windmill" {
                         
-                        self.f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
+//
                         
-                        node.addChildNode(self.f16Object)
+                        if self.randobool == true {
+                            node.addChildNode(self.f16Object)
+                        } else {
+                            self.loadSession()
+                        }
+                        
+//
+                        
+                        print(self.f16Object.position)
                     }
 //                    else if imageName == "Transformator" {
     //                    let transformator = SCNScene(named: "transformator.scn")!
@@ -246,10 +299,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         let currentPositionOfCamera = orientation + location
         DispatchQueue.main.async {
             if self.drawButton.isHighlighted {
-                let sphereNode = SCNNode(geometry: SCNSphere(radius: 1))
-                sphereNode.position = currentPositionOfCamera
-                self.f16Object.addChildNode(sphereNode)
+                let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.008))
+                scene.rootNode.addChildNode(sphereNode)
                 sphereNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                sphereNode.position = currentPositionOfCamera
                 sphereNode.name = "sphere"
             } else {
                 let pointer = SCNNode(geometry: SCNSphere(radius: 0.005))
