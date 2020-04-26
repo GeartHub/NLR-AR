@@ -31,6 +31,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.sceneView.delegate = self
         
         self.title = "World tracking"
+        navigationController?.navigationBar.prefersLargeTitles = false
         
         // Adding the items to the View
         view.addSubview(sceneView)

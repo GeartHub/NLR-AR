@@ -20,7 +20,7 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         // Setting the background color
         self.view.backgroundColor = UIColor.black
-        
+
         // Autoresizing is the automatic contraints of Apple, we dont want that.
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,8 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc func goToMainView() {
-        self.navigationController?.pushViewController(ViewController(), animated: true)
+        self.navigationController?.pushViewController(PlaneSelectionViewController(), animated: true)
+        
     }
     
     // Setup of the contraints for this viewcontroller. This is the placement of the items.
@@ -87,6 +88,8 @@ class WelcomeViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
+    
+    
     /*
     // MARK: - Navigation
 
