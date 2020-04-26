@@ -24,7 +24,7 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PlaneCellId", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: planeCellId, for: indexPath)
         
         cell.textLabel!.text = planeArray[indexPath.row]
         
