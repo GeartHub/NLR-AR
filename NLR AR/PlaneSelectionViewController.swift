@@ -27,6 +27,7 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: planeCellId, for: indexPath)
         
         cell.textLabel!.text = planeArray[indexPath.row]
+        cell.selectionStyle = .none
         
         return cell
     }
