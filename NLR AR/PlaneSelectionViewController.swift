@@ -79,7 +79,7 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
     private func setupConstraints() {
         // Constraints
         NSLayoutConstraint.activate([
-            planesTable.topAnchor.constraint(equalTo: view.topAnchor, constant: 175),
+            planesTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             planesTable.rightAnchor.constraint(equalTo: view.rightAnchor),
             planesTable.leftAnchor.constraint(equalTo: view.leftAnchor),
             planesTable.bottomAnchor.constraint(equalTo: view.bottomAnchor)
