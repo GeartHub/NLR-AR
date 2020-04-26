@@ -33,7 +33,7 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goToMainView()
+        goToMainView(title: planeArray[indexPath.row])
     }
     
     let planesTable = UITableView()
@@ -72,8 +72,10 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
         setupConstraints()
     }
     
-    @objc func goToMainView() {
-        self.navigationController?.pushViewController(ViewController(), animated: true)
+    @objc func goToMainView(title: String) {
+        let viewController = ViewController()
+        viewController.title = title
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 
     // Setup of the contraints for this viewcontroller. This is the placement of the items.
