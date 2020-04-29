@@ -17,6 +17,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     var messageLabel = UILabel()
     
+    let tabBar = UITabBarController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Autoresizing is the automatic contraints of Apple, we dont want that.
@@ -36,8 +38,31 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         view.addSubview(sceneView)
         view.addSubview(messageLabel)
         
+        tabBarNavigation()
         restartSession()
         setupConstraints()
+    }
+    
+    // Tab Bar Navigation
+    func tabBarNavigation() {
+        let reportsViewController = UIViewController()
+
+        let scanPlaneViewController = ViewController()
+
+        let helpViewController = UIViewController()
+
+        let item1 = UITabBarItem(title: "Reports", image: UIImage(systemName: "folder.fill"), tag: 0)
+        let item2 = UITabBarItem(title: "Scan plane", image: UIImage(systemName: "camera.fill"), tag: 1)
+        let item3 = UITabBarItem(title: "Help", image: UIImage(systemName: "questionmark.square.fill"), tag: 2)
+        
+        reportsViewController.tabBarItem = item1
+        scanPlaneViewController.tabBarItem = item2
+        helpViewController.tabBarItem = item3
+        
+        tabBar.viewControllers = [reportsViewController,scanPlaneViewController,helpViewController]
+        
+        self.view.addSubview(tabBar.view)
+        
     }
     
     /// Setup of the contraints fot this viewcontroller. This is the placement of the items.
