@@ -24,9 +24,9 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: planeCellId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: planeCellId, for: indexPath) as! PlaneCell
         
-        cell.textLabel!.text = planeArray[indexPath.row]
+        cell.titleLabel.text = planeArray[indexPath.row]
         cell.selectionStyle = .none
         
         return cell
@@ -101,12 +101,30 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
 
 class PlaneCell: UITableViewCell {
     
+    lazy var titleLabel: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setupCell()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setupCell()
+    }
+    
+    func setupCell() {
+        contentView.addSubview(titleLabel)
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25)
+        ])
     }
     
 }
