@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA3A56D7245EAF3E00252265 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56D6245EAF3E00252265 /* TabBarController.swift */; };
 		DAAA4D832455AC45008A71CD /* PlaneSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */; };
 		DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC405DE244B707E00861A14 /* WelcomeViewController.swift */; };
 		DACF002C243645120080D201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002B243645120080D201 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA3A56D6245EAF3E00252265 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaneSelectionViewController.swift; sourceTree = "<group>"; };
 		DAC405DE244B707E00861A14 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		DACF0028243645120080D201 /* NLR AR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NLR AR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 				DACF002B243645120080D201 /* AppDelegate.swift */,
 				DACF002D243645120080D201 /* SceneDelegate.swift */,
 				DACF002F243645120080D201 /* ViewController.swift */,
+				DA3A56D6245EAF3E00252265 /* TabBarController.swift */,
 				DACF0037243645150080D201 /* Assets.xcassets */,
 				DACF0039243645150080D201 /* LaunchScreen.storyboard */,
 				DACF003C243645150080D201 /* Info.plist */,
@@ -268,6 +271,7 @@
 				DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */,
 				DACF0036243645120080D201 /* NLR_AR.xcdatamodeld in Sources */,
 				DACF002C243645120080D201 /* AppDelegate.swift in Sources */,
+				DA3A56D7245EAF3E00252265 /* TabBarController.swift in Sources */,
 				DAAA4D832455AC45008A71CD /* PlaneSelectionViewController.swift in Sources */,
 				DACF002E243645120080D201 /* SceneDelegate.swift in Sources */,
 			);
