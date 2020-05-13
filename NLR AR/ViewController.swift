@@ -98,7 +98,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             if let decodedSession = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedSession) as? SCNScene {
                 sceneView.scene = decodedSession
             }
+        } else {
+            sceneView.scene.rootNode.addChildNode(f16Object)
         }
+        
     }
     
     /// Setup of the contraints fot this viewcontroller. This is the placement of the items.
@@ -150,6 +153,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     @objc
     func tapped(sender: UITapGestureRecognizer) {
+//        let tappedSceneView = sender.view as! ARSCNView
         let tappedLocation = sender.location(in: sceneView)
         let hitTest = sceneView.hitTest(tappedLocation, types: .featurePoint)
         if !hitTest.isEmpty {
