@@ -9,30 +9,52 @@
 import UIKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     let updateQueue = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".serialSceneKitQueue")
     
     var sceneView = ARSCNView()
     
     var messageLabel = UILabel()
+    var resetButton = UIButton()
+    var saveButton = UIButton()
+    
+    var f16Object: SCNNode!
+    
+    var test: ARSCNView!
+    
+    var randobool: Bool = false
     
     var messageView = UIView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         // Autoresizing is the automatic contraints of Apple, we dont want that.
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
         self.messageView.translatesAutoresizingMaskIntoConstraints = false
+        self.resetButton.translatesAutoresizingMaskIntoConstraints = false
+        self.saveButton.translatesAutoresizingMaskIntoConstraints = false
         
+        
+        // Setup of resetButton
+        self.resetButton.setTitleColor(.systemBlue, for: .normal)
+        self.resetButton.setTitle("Restart", for: .normal)
+        self.resetButton.addTarget(self, action: #selector(restartSession), for: .touchUpInside)
+        
+        // Setup of draw button
+        self.saveButton.setTitleColor(.systemBlue, for: .normal)
+        self.saveButton.setTitle("Save", for: .normal)
+        self.saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
+
         // Setup of sceneView
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         self.sceneView.showsStatistics = true
         self.sceneView.autoenablesDefaultLighting = true
         self.sceneView.automaticallyUpdatesLighting = true
-        self.sceneView.delegate = self
         
         // Setting the title to small
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -49,11 +71,48 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Adding the items to the View
         view.addSubview(sceneView)
+        view.addSubview(resetButton)
+        view.addSubview(saveButton)
         view.addSubview(messageView)
         messageView.addSubview(messageLabel)
         
         restartSession()
         setupConstraints()
+        registerGestureRecognizers()
+        guard let f16Scene = SCNScene(named: "F-16D.scn") else { return }
+        guard let f16Object = f16Scene.rootNode.childNode(withName: "Plane", recursively: true) else { return }
+        self.f16Object = f16Object
+        self.f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
+        self.f16Object.name = "F-16"
+    }
+    
+    @objc
+    func saveSession() {
+        
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: sceneView.scene, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "SavedScene")
+            debugPrint("Saving plane")
+        }
+        
+    }
+    
+    
+    func registerGestureRecognizers() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        self.sceneView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func loadSession() {
+        let defaults = UserDefaults.standard
+        if let savedSession = defaults.object(forKey: "SavedScene") as? Data {
+            if let decodedSession = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedSession) as? SCNScene {
+                sceneView.scene = decodedSession
+            }
+        } else {
+            sceneView.scene.rootNode.addChildNode(f16Object)
+        }
+        
     }
     
     /// Setup of the contraints fot this viewcontroller. This is the placement of the items.
@@ -78,19 +137,76 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             messageLabel.rightAnchor.constraint(equalTo: messageView.rightAnchor, constant: -10),
             messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 300)
         ])
+        
+        //resetButtonConstraints
+        NSLayoutConstraint.activate([
+            resetButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            resetButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20)
+        ])
+        
+        //resetButtonConstraints
+        NSLayoutConstraint.activate([
+            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            saveButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
+        ])
+    }
+    
+    @objc
+    func tapped(sender: UITapGestureRecognizer) {
+        let tappedLocation = sender.location(in: sceneView)
+        if randobool == true {
+            if let hit = sceneView.hitTest(tappedLocation, options: nil).first {
+                print(hit.node)
+                if hit.node.name == "F-16" {
+                    addDamage(hit: hit)
+                }
+            }
+            
+            
+            
+        } else {
+            let hitTest = sceneView.hitTest(tappedLocation, types: .featurePoint)
+            if !hitTest.isEmpty {
+                loadSession()
+                
+                randobool = true
+                
+            } else {
+                print("nope")
+            }
+        }
+    }
+    
+    func addDamage(hit: SCNHitTestResult) {
+        
+        let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.01))
+        
+        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        cylinderNode.position = SCNVector3(hit.worldCoordinates.x, hit.worldCoordinates.y, hit.worldCoordinates.z)
+        cylinderNode.name = "damage"
+        
+        sceneView.scene.rootNode.addChildNode(cylinderNode)
+        
     }
     
     /// This function restarts the AR session so everything is ready to go again.
+    @objc
     private func restartSession() {
         
         guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
         guard let referenceObjects = ARReferenceObject.referenceObjects(inGroupNamed: "AR Resources", bundle: nil) else { return }
         
-        
         let configuration = ARWorldTrackingConfiguration()
         configuration.detectionImages = referenceImages
         configuration.detectionObjects = referenceObjects
+        self.sceneView.scene.rootNode.enumerateChildNodes({ (node, _) in
+            if node.name == "sphere" {
+                node.removeFromParentNode()
+            }
+        })
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        self.sceneView.delegate = self
+        self.sceneView.session.delegate = self
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -110,23 +226,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     self.messageLabel.text = ("Detected object “\(nameScannedObject)”")
                 }
                 
+                print(anchor.transform.columns)
                 
                 
-                //                if imageName == "Windmill" {
-                //                    let windmill = SCNScene(named: "windmill.scn")!
-                //                    let windmillNode = windmill.rootNode.childNode(withName: "windmill", recursively: false)!
-                //
-                //                    node.addChildNode(windmillNode)
-                //                    let turningPoint = windmillNode.childNode(withName: "holderParent", recursively: true)
-                //                    let turningAction = self.rotation(time: 4)
-                //                    turningPoint?.runAction(turningAction)
-                //                } else if imageName == "Transformator" {
-                //                    let transformator = SCNScene(named: "transformator.scn")!
-                //                    let transformatorNode = transformator.rootNode.childNode(withName: "transformator", recursively: false)!
-                //                    transformatorNode.scale = SCNVector3(0.00015, 0.00015, 0.00015)
-                //
-                //                    node.addChildNode(transformatorNode)
-                //                }
+                if self.randobool == true {
+                    node.addChildNode(self.f16Object)
+                } else {
+                    self.loadSession()
+                }
+                print(self.f16Object.position)
+              
                 // Create a plane to visualize the initial position of the detected image.
                 let plane = SCNPlane(width: referenceImage.physicalSize.width,
                                      height: referenceImage.physicalSize.height)
@@ -149,29 +258,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 // Add the plane visualization to the scene.
                 node.addChildNode(planeNode)
                 
-                //            let text = SCNText(string: "\(imageName)", extrusionDepth: 0.1)
-                //            text.font = UIFont.systemFont(ofSize: 1.0)
-                //            text.flatness = 0.01
-                //            text.firstMaterial?.diffuse.contents = UIColor.white
-                
-                //            let textNode = SCNNode(geometry: text)
-                //            let fontSize = Float(0.04)
-                //
-                //            textNode.scale = SCNVector3(fontSize, fontSize, fontSize)
-                //            textNode.position = SCNVector3Zero
-                //
-                //            var minVec = SCNVector3Zero
-                //            var maxVec = SCNVector3Zero
-                //            (minVec, maxVec) =  textNode.boundingBox
-                //            textNode.pivot = SCNMatrix4MakeTranslation(
-                //                minVec.x + (maxVec.x - minVec.x)/2,
-                //                minVec.y,
-                //                minVec.z + (maxVec.z - minVec.z)/2
-                //            )
-                //
-                //
-                //            windmillNode.addChildNode(textNode)
-                //            node.addChildNode(textNode)
             }
         }
     }
@@ -180,7 +266,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let foreverAction = SCNAction.repeatForever(action)
         return foreverAction
     }
-    
 }
 
 extension Int {
@@ -188,3 +273,8 @@ extension Int {
     var degreesToRadians: Double { return Double(self) * .pi/180}
 }
 
+func +(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+    
+    return SCNVector3Make(left.x + right.x, left.y + right.y, left.z + right.z)
+    
+}
