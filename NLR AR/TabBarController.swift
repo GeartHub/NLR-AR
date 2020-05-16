@@ -13,11 +13,11 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let reportsViewController = WelcomeViewController()
+        let reportsViewController = PlaceholderViewController()
 
         let scanPlaneViewController = ViewController()
 
-        let helpViewController = UIViewController()
+        let helpViewController = PlaceholderViewController()
 
         let item1 = UITabBarItem(title: "Reports", image: UIImage(systemName: "folder.fill"), tag: 0)
         let item2 = UITabBarItem(title: "Scan plane", image: UIImage(systemName: "camera.fill"), tag: 1)
