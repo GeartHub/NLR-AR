@@ -10,7 +10,7 @@ import UIKit
 import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
-
+    
     let updateQueue = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".serialSceneKitQueue")
     
     var sceneView = ARSCNView()
@@ -29,7 +29,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        
         // Autoresizing is the automatic contraints of Apple, we dont want that.
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -139,30 +139,42 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         ])
     }
     
-    func addItem(hitTestResult: ARHitTestResult) {
-        let node = SCNNode(geometry: SCNSphere(radius: 1))
-        let transform = hitTestResult.worldTransform
-        let thirdColumn = transform.columns.3
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        node.name = "sphere"
-        node.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
-        
-        self.sceneView.scene.rootNode.addChildNode(node)
-        
-    }
-    
     @objc
     func tapped(sender: UITapGestureRecognizer) {
-//        let tappedSceneView = sender.view as! ARSCNView
         let tappedLocation = sender.location(in: sceneView)
-        let hitTest = sceneView.hitTest(tappedLocation, types: .featurePoint)
-        if !hitTest.isEmpty {
-            let result = hitTest.first!
-            loadSession()
+        if randobool == true {
+            if let hit = sceneView.hitTest(tappedLocation, options: nil).first {
+                print(hit.node)
+                if hit.node.name == "F-16" {
+                    addDamage(hit: hit)
+                }
+            }
+            
+            
             
         } else {
-            print("nope")
+            let hitTest = sceneView.hitTest(tappedLocation, types: .featurePoint)
+            if !hitTest.isEmpty {
+                loadSession()
+                
+                randobool = true
+                
+            } else {
+                print("nope")
+            }
         }
+    }
+    
+    func addDamage(hit: SCNHitTestResult) {
+        
+        let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.01))
+        
+        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        cylinderNode.position = SCNVector3(hit.worldCoordinates.x, hit.worldCoordinates.y, hit.worldCoordinates.z)
+        cylinderNode.name = "damage"
+        
+        sceneView.scene.rootNode.addChildNode(cylinderNode)
+        
     }
     
     /// This function restarts the AR session so everything is ready to go again.
@@ -206,7 +218,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                 
                 print(anchor.transform.columns)
                 
-                        
+                
                 if self.randobool == true {
                     node.addChildNode(self.f16Object)
                 } else {
@@ -218,23 +230,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                                      height: referenceImage.physicalSize.height)
                 let planeNode = SCNNode(geometry: plane)
                 planeNode.opacity = 0.01
-
+                
                 /*
                  `SCNPlane` is vertically oriented in its local coordinate space, but
                  `ARImageAnchor` assumes the image is horizontal in its local space, so
                  rotate the plane to match.
                  */
                 planeNode.eulerAngles.x = -.pi / 2
-
+                
                 /*
                  Image anchors are not tracked after initial detection, so create an
                  animation that limits the duration for which the plane visualization appears.
                  */
-    //            planeNode.runAction(self.imageHighlightAction)
-
+                //            planeNode.runAction(self.imageHighlightAction)
+                
                 // Add the plane visualization to the scene.
                 node.addChildNode(planeNode)
-
+                
             }
         }
     }
@@ -267,11 +279,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                 })
                 self.sceneView.scene.rootNode.addChildNode(pointer)
                 pointer.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-
+                
             }
         }
     }
-
+    
 }
 
 extension Int {
