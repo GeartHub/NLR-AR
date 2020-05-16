@@ -10,18 +10,22 @@ import UIKit
 import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
-
+    
     let updateQueue = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".serialSceneKitQueue")
     
     var sceneView = ARSCNView()
     
     var messageLabel = UILabel()
     
+    var messageView = UIView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Autoresizing is the automatic contraints of Apple, we dont want that.
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.messageView.translatesAutoresizingMaskIntoConstraints = false
         
         // Setup of sceneView
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
@@ -32,9 +36,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         navigationController?.navigationBar.prefersLargeTitles = false
         
+        // Styling the messageLabel
+        self.messageView.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.5)
+        self.messageLabel.textAlignment = .center
+        self.messageLabel.lineBreakMode = .byWordWrapping
+        self.messageLabel.numberOfLines = 0
+        self.messageView.layer.masksToBounds = true
+        self.messageView.layer.cornerRadius = 10.0
+        
         // Adding the items to the View
         view.addSubview(sceneView)
-        view.addSubview(messageLabel)
+        view.addSubview(messageView)
+        messageView.addSubview(messageLabel)
         
         restartSession()
         setupConstraints()
@@ -49,11 +62,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             sceneView.leftAnchor.constraint(equalTo: view.leftAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
+        let marginGuide = view.layoutMarginsGuide
         // messageLabelConstraints
         NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            messageLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+            messageView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: -50),
+            messageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+        NSLayoutConstraint.activate([
+            messageLabel.bottomAnchor.constraint(equalTo: messageView.bottomAnchor, constant: -10),
+            messageLabel.topAnchor.constraint(equalTo: messageView.topAnchor, constant: 10),
+            messageLabel.leftAnchor.constraint(equalTo: messageView.leftAnchor, constant: 10),
+            messageLabel.rightAnchor.constraint(equalTo: messageView.rightAnchor, constant: -10),
+            messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 300)
         ])
     }
     
@@ -84,71 +104,71 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             nameScannedObject = imageName
             updateQueue.async {
                 DispatchQueue.main.async {
-                    self.messageLabel.text = ("Detected image “\(nameScannedObject)”")
+                    self.messageLabel.text = ("Detected object “\(nameScannedObject)”")
                 }
                 
                 
                 
-    //                if imageName == "Windmill" {
-    //                    let windmill = SCNScene(named: "windmill.scn")!
-    //                    let windmillNode = windmill.rootNode.childNode(withName: "windmill", recursively: false)!
-    //
-    //                    node.addChildNode(windmillNode)
-    //                    let turningPoint = windmillNode.childNode(withName: "holderParent", recursively: true)
-    //                    let turningAction = self.rotation(time: 4)
-    //                    turningPoint?.runAction(turningAction)
-    //                } else if imageName == "Transformator" {
-    //                    let transformator = SCNScene(named: "transformator.scn")!
-    //                    let transformatorNode = transformator.rootNode.childNode(withName: "transformator", recursively: false)!
-    //                    transformatorNode.scale = SCNVector3(0.00015, 0.00015, 0.00015)
-    //
-    //                    node.addChildNode(transformatorNode)
-    //                }
+                //                if imageName == "Windmill" {
+                //                    let windmill = SCNScene(named: "windmill.scn")!
+                //                    let windmillNode = windmill.rootNode.childNode(withName: "windmill", recursively: false)!
+                //
+                //                    node.addChildNode(windmillNode)
+                //                    let turningPoint = windmillNode.childNode(withName: "holderParent", recursively: true)
+                //                    let turningAction = self.rotation(time: 4)
+                //                    turningPoint?.runAction(turningAction)
+                //                } else if imageName == "Transformator" {
+                //                    let transformator = SCNScene(named: "transformator.scn")!
+                //                    let transformatorNode = transformator.rootNode.childNode(withName: "transformator", recursively: false)!
+                //                    transformatorNode.scale = SCNVector3(0.00015, 0.00015, 0.00015)
+                //
+                //                    node.addChildNode(transformatorNode)
+                //                }
                 // Create a plane to visualize the initial position of the detected image.
                 let plane = SCNPlane(width: referenceImage.physicalSize.width,
                                      height: referenceImage.physicalSize.height)
                 let planeNode = SCNNode(geometry: plane)
                 planeNode.opacity = 0.01
-
+                
                 /*
                  `SCNPlane` is vertically oriented in its local coordinate space, but
                  `ARImageAnchor` assumes the image is horizontal in its local space, so
                  rotate the plane to match.
                  */
                 planeNode.eulerAngles.x = -.pi / 2
-
+                
                 /*
                  Image anchors are not tracked after initial detection, so create an
                  animation that limits the duration for which the plane visualization appears.
                  */
-    //            planeNode.runAction(self.imageHighlightAction)
-
+                //            planeNode.runAction(self.imageHighlightAction)
+                
                 // Add the plane visualization to the scene.
                 node.addChildNode(planeNode)
-
-    //            let text = SCNText(string: "\(imageName)", extrusionDepth: 0.1)
-    //            text.font = UIFont.systemFont(ofSize: 1.0)
-    //            text.flatness = 0.01
-    //            text.firstMaterial?.diffuse.contents = UIColor.white
-
-    //            let textNode = SCNNode(geometry: text)
-    //            let fontSize = Float(0.04)
-    //
-    //            textNode.scale = SCNVector3(fontSize, fontSize, fontSize)
-    //            textNode.position = SCNVector3Zero
-    //
-    //            var minVec = SCNVector3Zero
-    //            var maxVec = SCNVector3Zero
-    //            (minVec, maxVec) =  textNode.boundingBox
-    //            textNode.pivot = SCNMatrix4MakeTranslation(
-    //                minVec.x + (maxVec.x - minVec.x)/2,
-    //                minVec.y,
-    //                minVec.z + (maxVec.z - minVec.z)/2
-    //            )
-    //
-    //
-    //            windmillNode.addChildNode(textNode)
-    //            node.addChildNode(textNode)
+                
+                //            let text = SCNText(string: "\(imageName)", extrusionDepth: 0.1)
+                //            text.font = UIFont.systemFont(ofSize: 1.0)
+                //            text.flatness = 0.01
+                //            text.firstMaterial?.diffuse.contents = UIColor.white
+                
+                //            let textNode = SCNNode(geometry: text)
+                //            let fontSize = Float(0.04)
+                //
+                //            textNode.scale = SCNVector3(fontSize, fontSize, fontSize)
+                //            textNode.position = SCNVector3Zero
+                //
+                //            var minVec = SCNVector3Zero
+                //            var maxVec = SCNVector3Zero
+                //            (minVec, maxVec) =  textNode.boundingBox
+                //            textNode.pivot = SCNMatrix4MakeTranslation(
+                //                minVec.x + (maxVec.x - minVec.x)/2,
+                //                minVec.y,
+                //                minVec.z + (maxVec.z - minVec.z)/2
+                //            )
+                //
+                //
+                //            windmillNode.addChildNode(textNode)
+                //            node.addChildNode(textNode)
             }
         }
     }
@@ -157,7 +177,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let foreverAction = SCNAction.repeatForever(action)
         return foreverAction
     }
-
+    
 }
 
 extension Int {
