@@ -25,6 +25,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     var randobool: Bool = false
     
+    var messageView = UIView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +35,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         // Autoresizing is the automatic contraints of Apple, we dont want that.
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.messageView.translatesAutoresizingMaskIntoConstraints = false
         self.resetButton.translatesAutoresizingMaskIntoConstraints = false
         self.saveButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -45,19 +49,32 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.saveButton.setTitleColor(.systemBlue, for: .normal)
         self.saveButton.setTitle("Save", for: .normal)
         self.saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
-        
-        
+
         // Setup of sceneView
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         self.sceneView.showsStatistics = true
         self.sceneView.autoenablesDefaultLighting = true
         self.sceneView.automaticallyUpdatesLighting = true
         
+        // Setting the title to small
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        // Styling the messageView
+        self.messageView.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.5)
+        self.messageView.layer.masksToBounds = true
+        self.messageView.layer.cornerRadius = 10.0
+        
+        // Styling the messageLabel
+        self.messageLabel.textAlignment = .center
+        self.messageLabel.lineBreakMode = .byWordWrapping
+        self.messageLabel.numberOfLines = 0
+        
         // Adding the items to the View
         view.addSubview(sceneView)
-        view.addSubview(messageLabel)
         view.addSubview(resetButton)
         view.addSubview(saveButton)
+        view.addSubview(messageView)
+        messageView.addSubview(messageLabel)
         
         restartSession()
         setupConstraints()
@@ -107,11 +124,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             sceneView.leftAnchor.constraint(equalTo: view.leftAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
+        let marginGuide = view.layoutMarginsGuide
         // messageLabelConstraints
         NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            messageLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+            messageView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: -50),
+            messageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+        NSLayoutConstraint.activate([
+            messageLabel.bottomAnchor.constraint(equalTo: messageView.bottomAnchor, constant: -10),
+            messageLabel.topAnchor.constraint(equalTo: messageView.topAnchor, constant: 10),
+            messageLabel.leftAnchor.constraint(equalTo: messageView.leftAnchor, constant: 10),
+            messageLabel.rightAnchor.constraint(equalTo: messageView.rightAnchor, constant: -10),
+            messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 300)
         ])
         
         //resetButtonConstraints
@@ -199,7 +223,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             nameScannedObject = imageName
             updateQueue.async {
                 DispatchQueue.main.async {
-                    self.messageLabel.text = ("Detected image “\(nameScannedObject)”")
+                    self.messageLabel.text = ("Detected object “\(nameScannedObject)”")
                 }
                 
                 print(anchor.transform.columns)
@@ -211,6 +235,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                     self.loadSession()
                 }
                 print(self.f16Object.position)
+              
                 // Create a plane to visualize the initial position of the detected image.
                 let plane = SCNPlane(width: referenceImage.physicalSize.width,
                                      height: referenceImage.physicalSize.height)

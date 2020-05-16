@@ -4,6 +4,8 @@
 <dict>
 	<key>NSCameraUsageDescription</key>
 	<string>This application needs to use your camera to function</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Dark</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
