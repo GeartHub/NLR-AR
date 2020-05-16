@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DACF0040243645150080D201"
+               BuildableName = "NLR ARTests.xctest"
+               BlueprintName = "NLR ARTests"
+               ReferencedContainer = "container:NLR AR.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DACF004B243645150080D201"
+               BuildableName = "NLR ARUITests.xctest"
+               BlueprintName = "NLR ARUITests"
+               ReferencedContainer = "container:NLR AR.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

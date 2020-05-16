@@ -38,8 +38,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.messageView.translatesAutoresizingMaskIntoConstraints = false
         self.resetButton.translatesAutoresizingMaskIntoConstraints = false
         self.saveButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        
+      
         // Setup of resetButton
         self.resetButton.setTitleColor(.systemBlue, for: .normal)
         self.resetButton.setTitle("Restart", for: .normal)
@@ -55,7 +54,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.sceneView.showsStatistics = true
         self.sceneView.autoenablesDefaultLighting = true
         self.sceneView.automaticallyUpdatesLighting = true
-        
+      
         // Setting the title to small
         navigationController?.navigationBar.prefersLargeTitles = false
         
@@ -119,7 +118,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     private func setupConstraints() {
         // sceneViewConstraints
         NSLayoutConstraint.activate([
-            sceneView.topAnchor.constraint(equalTo: view.topAnchor),
+            sceneView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             sceneView.rightAnchor.constraint(equalTo: view.rightAnchor),
             sceneView.leftAnchor.constraint(equalTo: view.leftAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
