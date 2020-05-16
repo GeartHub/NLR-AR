@@ -200,8 +200,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             updateQueue.async {
                 DispatchQueue.main.async {
                     self.messageLabel.text = ("Detected image “\(nameScannedObject)”")
-                    
-                    print("Geart is cool")
                 }
                 
                 print(anchor.transform.columns)
