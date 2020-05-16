@@ -16,7 +16,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     var sceneView = ARSCNView()
     
     var messageLabel = UILabel()
-    var drawButton = UIButton()
     var resetButton = UIButton()
     var saveButton = UIButton()
     
@@ -33,13 +32,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         // Autoresizing is the automatic contraints of Apple, we dont want that.
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.drawButton.translatesAutoresizingMaskIntoConstraints = false
         self.resetButton.translatesAutoresizingMaskIntoConstraints = false
         self.saveButton.translatesAutoresizingMaskIntoConstraints = false
         
-        // Setup of draw button
-        self.drawButton.setTitleColor(.systemBlue, for: .normal)
-        self.drawButton.setTitle("Draw", for: .normal)
         
         // Setup of resetButton
         self.resetButton.setTitleColor(.systemBlue, for: .normal)
@@ -61,7 +56,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         // Adding the items to the View
         view.addSubview(sceneView)
         view.addSubview(messageLabel)
-        view.addSubview(drawButton)
         view.addSubview(resetButton)
         view.addSubview(saveButton)
         
@@ -118,12 +112,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             messageLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
-        ])
-        
-        // drawButtonContraints
-        NSLayoutConstraint.activate([
-            drawButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            drawButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         //resetButtonConstraints
@@ -255,35 +243,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         let foreverAction = SCNAction.repeatForever(action)
         return foreverAction
     }
-    func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
-        guard let pointOfView = sceneView.pointOfView else {return}
-        let transform = pointOfView.transform
-        let orientation = SCNVector3(-transform.m31, -transform.m32, -transform.m33)
-        let location = SCNVector3(transform.m41,transform.m42,transform.m43)
-        let currentPositionOfCamera = orientation + location
-        DispatchQueue.main.async {
-            if self.drawButton.isHighlighted {
-                let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.008))
-                scene.rootNode.addChildNode(sphereNode)
-                sphereNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-                sphereNode.position = currentPositionOfCamera
-                sphereNode.name = "sphere"
-            } else {
-                let pointer = SCNNode(geometry: SCNSphere(radius: 0.005))
-                pointer.name = "pointer"
-                pointer.position = currentPositionOfCamera
-                scene.rootNode.enumerateChildNodes({ (node, _) in
-                    if node.name == "pointer" {
-                        node.removeFromParentNode()
-                    }
-                })
-                self.sceneView.scene.rootNode.addChildNode(pointer)
-                pointer.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-                
-            }
-        }
-    }
-    
 }
 
 extension Int {
