@@ -34,15 +34,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.sceneView.automaticallyUpdatesLighting = true
         self.sceneView.delegate = self
         
+        // Setting the title to small
         navigationController?.navigationBar.prefersLargeTitles = false
         
-        // Styling the messageLabel
+        // Styling the messageView
         self.messageView.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.5)
+        self.messageView.layer.masksToBounds = true
+        self.messageView.layer.cornerRadius = 10.0
+        
+        // Styling the messageLabel
         self.messageLabel.textAlignment = .center
         self.messageLabel.lineBreakMode = .byWordWrapping
         self.messageLabel.numberOfLines = 0
-        self.messageView.layer.masksToBounds = true
-        self.messageView.layer.cornerRadius = 10.0
         
         // Adding the items to the View
         view.addSubview(sceneView)
