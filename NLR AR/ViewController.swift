@@ -82,7 +82,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         guard let f16Scene = SCNScene(named: "F-16D.scn") else { return }
         guard let f16Object = f16Scene.rootNode.childNode(withName: "Plane", recursively: true) else { return }
         self.f16Object = f16Object
-        self.f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
+        self.f16Object.scale = SCNVector3(0.2, 0.2, 0.2)
         self.f16Object.name = "F-16"
     }
     
