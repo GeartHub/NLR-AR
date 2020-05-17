@@ -100,7 +100,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     func registerGestureRecognizers() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinched))
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
+        self.sceneView.addGestureRecognizer(pinchGestureRecognizer)
     }
     
     func loadSession() {
@@ -173,6 +175,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                 
             } else {
                 print("nope")
+            }
+        }
+    }
+    
+    @objc
+    func pinched(sender: UIPinchGestureRecognizer) {
+        let pinchedLocation = sender.location(in: sceneView)
+        
+        if let hit = sceneView.hitTest(pinchedLocation).first {
+            if hit.node.name == "damage" {
+                let pinchAction = SCNAction.scale(by: sender.scale, duration: 0)
+                hit.node.runAction(pinchAction)
+                sender.scale = 1.0
             }
         }
     }
