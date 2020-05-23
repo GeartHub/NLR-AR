@@ -7,22 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0D1E92247932AC005BBF60 /* Coordinates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */; };
+		DA0D1E93247932AC005BBF60 /* Coordinates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */; };
+		DAAA4D832455AC45008A71CD /* PlaneSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */; };
+		DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC405DE244B707E00861A14 /* WelcomeViewController.swift */; };
 		DACE17612447A2F700872588 /* UVMap.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DACE175C2447A2F700872588 /* UVMap.pdf */; };
 		DACE17622447A2F700872588 /* Metallic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175D2447A2F700872588 /* Metallic.jpg */; };
 		DACE17632447A2F700872588 /* Albedo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175E2447A2F700872588 /* Albedo.jpg */; };
 		DACE17642447A2F700872588 /* Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175F2447A2F700872588 /* Roughness.jpg */; };
 		DACE17652447A2F700872588 /* Normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE17602447A2F700872588 /* Normal.jpg */; };
 		DACE17672447A30100872588 /* F-16D.scn in Resources */ = {isa = PBXBuildFile; fileRef = DACE17662447A30100872588 /* F-16D.scn */; };
-		DAAA4D832455AC45008A71CD /* PlaneSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */; };
-		DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC405DE244B707E00861A14 /* WelcomeViewController.swift */; };
 		DACF002C243645120080D201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002B243645120080D201 /* AppDelegate.swift */; };
 		DACF002E243645120080D201 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002D243645120080D201 /* SceneDelegate.swift */; };
 		DACF0030243645120080D201 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002F243645120080D201 /* ViewController.swift */; };
-		DACF0036243645120080D201 /* NLR_AR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DACF0034243645120080D201 /* NLR_AR.xcdatamodeld */; };
 		DACF0038243645150080D201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DACF0037243645150080D201 /* Assets.xcassets */; };
 		DACF003B243645150080D201 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DACF0039243645150080D201 /* LaunchScreen.storyboard */; };
 		DACF0046243645150080D201 /* NLR_ARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF0045243645150080D201 /* NLR_ARTests.swift */; };
 		DACF0051243645150080D201 /* NLR_ARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF0050243645150080D201 /* NLR_ARUITests.swift */; };
+		DAE2C31A247928C400B58E81 /* NLR_AR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAE2C318247928C400B58E81 /* NLR_AR.xcdatamodeld */; };
+		DAE2C31F24792A1B00B58E81 /* DamageNode+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE2C31B24792A1B00B58E81 /* DamageNode+CoreDataClass.swift */; };
+		DAE2C32024792A1B00B58E81 /* DamageNode+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE2C31C24792A1B00B58E81 /* DamageNode+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,19 +47,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaneSelectionViewController.swift; sourceTree = "<group>"; };
+		DAC405DE244B707E00861A14 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		DACE175C2447A2F700872588 /* UVMap.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UVMap.pdf; sourceTree = "<group>"; };
 		DACE175D2447A2F700872588 /* Metallic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Metallic.jpg; sourceTree = "<group>"; };
 		DACE175E2447A2F700872588 /* Albedo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Albedo.jpg; sourceTree = "<group>"; };
 		DACE175F2447A2F700872588 /* Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Roughness.jpg; sourceTree = "<group>"; };
 		DACE17602447A2F700872588 /* Normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Normal.jpg; sourceTree = "<group>"; };
 		DACE17662447A30100872588 /* F-16D.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "F-16D.scn"; sourceTree = "<group>"; };
-		DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaneSelectionViewController.swift; sourceTree = "<group>"; };
-		DAC405DE244B707E00861A14 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		DACF0028243645120080D201 /* NLR AR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NLR AR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACF002B243645120080D201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DACF002D243645120080D201 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DACF002F243645120080D201 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DACF0035243645120080D201 /* NLR_AR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NLR_AR.xcdatamodel; sourceTree = "<group>"; };
 		DACF0037243645150080D201 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DACF003A243645150080D201 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DACF003C243645150080D201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +70,9 @@
 		DACF004C243645150080D201 /* NLR ARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NLR ARUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACF0050243645150080D201 /* NLR_ARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLR_ARUITests.swift; sourceTree = "<group>"; };
 		DACF0052243645150080D201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAE2C319247928C400B58E81 /* NLR_AR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NLR_AR.xcdatamodel; sourceTree = "<group>"; };
+		DAE2C31B24792A1B00B58E81 /* DamageNode+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DamageNode+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DAE2C31C24792A1B00B58E81 /* DamageNode+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DamageNode+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +116,10 @@
 		DACF001F243645120080D201 = {
 			isa = PBXGroup;
 			children = (
+				DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */,
+				DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */,
+				DAE2C31B24792A1B00B58E81 /* DamageNode+CoreDataClass.swift */,
+				DAE2C31C24792A1B00B58E81 /* DamageNode+CoreDataProperties.swift */,
 				DACF002A243645120080D201 /* NLR AR */,
 				DACF0044243645150080D201 /* NLR ARTests */,
 				DACF004F243645150080D201 /* NLR ARUITests */,
@@ -137,7 +149,7 @@
 				DACF0037243645150080D201 /* Assets.xcassets */,
 				DACF0039243645150080D201 /* LaunchScreen.storyboard */,
 				DACF003C243645150080D201 /* Info.plist */,
-				DACF0034243645120080D201 /* NLR_AR.xcdatamodeld */,
+				DAE2C318247928C400B58E81 /* NLR_AR.xcdatamodeld */,
 			);
 			path = "NLR AR";
 			sourceTree = "<group>";
@@ -297,11 +309,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DACF0030243645120080D201 /* ViewController.swift in Sources */,
+				DA0D1E92247932AC005BBF60 /* Coordinates+CoreDataClass.swift in Sources */,
 				DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */,
-				DACF0036243645120080D201 /* NLR_AR.xcdatamodeld in Sources */,
 				DACF002C243645120080D201 /* AppDelegate.swift in Sources */,
 				DAAA4D832455AC45008A71CD /* PlaneSelectionViewController.swift in Sources */,
+				DAE2C31F24792A1B00B58E81 /* DamageNode+CoreDataClass.swift in Sources */,
 				DACF002E243645120080D201 /* SceneDelegate.swift in Sources */,
+				DAE2C32024792A1B00B58E81 /* DamageNode+CoreDataProperties.swift in Sources */,
+				DAE2C31A247928C400B58E81 /* NLR_AR.xcdatamodeld in Sources */,
+				DA0D1E93247932AC005BBF60 /* Coordinates+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,7 +485,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7U2CF25QL7;
 				INFOPLIST_FILE = "NLR AR/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -488,7 +504,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7U2CF25QL7;
 				INFOPLIST_FILE = "NLR AR/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -626,12 +642,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		DACF0034243645120080D201 /* NLR_AR.xcdatamodeld */ = {
+		DAE2C318247928C400B58E81 /* NLR_AR.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				DACF0035243645120080D201 /* NLR_AR.xcdatamodel */,
+				DAE2C319247928C400B58E81 /* NLR_AR.xcdatamodel */,
 			);
-			currentVersion = DACF0035243645120080D201 /* NLR_AR.xcdatamodel */;
+			currentVersion = DAE2C319247928C400B58E81 /* NLR_AR.xcdatamodel */;
 			path = NLR_AR.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

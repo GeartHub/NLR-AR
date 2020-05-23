@@ -8,6 +8,7 @@
 
 import UIKit
 import ARKit
+import CoreData
 
 class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
@@ -18,14 +19,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     var messageLabel = UILabel()
     var resetButton = UIButton()
     var saveButton = UIButton()
+    var messageView = UIView()
+    
+    var coordinates: [Float] = []
     
     var f16Object: SCNNode!
     
     var test: ARSCNView!
     
     var randobool: Bool = false
-    
-    var messageView = UIView()
     
     
     override func viewDidLoad() {
@@ -49,7 +51,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.saveButton.setTitleColor(.systemBlue, for: .normal)
         self.saveButton.setTitle("Save", for: .normal)
         self.saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
-
+        
         // Setup of sceneView
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         self.sceneView.showsStatistics = true
@@ -89,12 +91,25 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     @objc
     func saveSession() {
         
-        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: sceneView.scene, requiringSecureCoding: false) {
-            let defaults = UserDefaults.standard
-            defaults.set(savedData, forKey: "SavedScene")
-            debugPrint("Saving plane")
-        }
+        //        UserDefaults.standard.set(coordinates, forKey: "damageCoordinates")
         
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let damageNode = DamageNode.init(context: context)
+        let coordinatesToSave = Coordinates.init(context: context)
+        coordinatesToSave.x = coordinates[0]
+        coordinatesToSave.y = coordinates[1]
+        coordinatesToSave.z = coordinates[2]
+        
+        damageNode.coordinates = coordinatesToSave
+        
+        do {
+            try context.save()
+        } catch {
+            debugPrint(error)
+        }
     }
     
     
@@ -106,13 +121,26 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func loadSession() {
-        let defaults = UserDefaults.standard
-        if let savedSession = defaults.object(forKey: "SavedScene") as? Data {
-            if let decodedSession = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedSession) as? SCNScene {
-                sceneView.scene = decodedSession
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = appDelegate.persistentContainer.viewContext
+        do {
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "DamageNode")
+            let damageNodes = try context.fetch(fetchRequest) as! [DamageNode]
+            print(damageNodes)
+            for damageNode in damageNodes {
+                print(damageNode.coordinates)
+                guard let coordinates = damageNode.coordinates else { return }
+                print(coordinates)
+                var loadedCoordinates: [Float] = []
+                loadedCoordinates.append(coordinates.x)
+                loadedCoordinates.append(coordinates.y)
+                loadedCoordinates.append(coordinates.z)
+                addDamage(at: loadedCoordinates)
             }
-        } else {
-            sceneView.scene.rootNode.addChildNode(f16Object)
+            
+        } catch {
+            debugPrint(error)
         }
         
     }
@@ -158,9 +186,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         let tappedLocation = sender.location(in: sceneView)
         if randobool == true {
             if let hit = sceneView.hitTest(tappedLocation, options: nil).first {
-                print(hit.node)
                 if hit.node.name == "F-16" {
-                    addDamage(hit: hit)
+                    var damageCoordinates: [Float] = []
+                    damageCoordinates.append(hit.localCoordinates.x)
+                    damageCoordinates.append(hit.localCoordinates.y)
+                    damageCoordinates.append(hit.localCoordinates.z)
+                    addDamage(at: damageCoordinates)
+                    debugPrint("Hit f-16")
                 }
             }
             
@@ -169,6 +201,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         } else {
             let hitTest = sceneView.hitTest(tappedLocation, types: .featurePoint)
             if !hitTest.isEmpty {
+                sceneView.scene.rootNode.addChildNode(f16Object)
+                
                 loadSession()
                 
                 randobool = true
@@ -192,16 +226,20 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         }
     }
     
-    func addDamage(hit: SCNHitTestResult) {
+    func addDamage(at localCoordinates: [Float]) {
         
         let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.01))
         
         cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        cylinderNode.position = SCNVector3(hit.worldCoordinates.x, hit.worldCoordinates.y, hit.worldCoordinates.z)
+        cylinderNode.position = SCNVector3(localCoordinates[0], localCoordinates[1], localCoordinates[2])
         cylinderNode.name = "damage"
         
-        sceneView.scene.rootNode.addChildNode(cylinderNode)
+        coordinates.append(localCoordinates[0])
+        coordinates.append(localCoordinates[1])
+        coordinates.append(localCoordinates[2])
+        print(localCoordinates)
         
+        self.sceneView.scene.rootNode.childNode(withName: "F-16", recursively: false)?.addChildNode(cylinderNode)
     }
     
     /// This function restarts the AR session so everything is ready to go again.
@@ -220,8 +258,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             }
         })
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        if randobool {
+            let resetCoordinates: [Float] = []
+            UserDefaults.standard.set(resetCoordinates, forKey: "damageCoordinates")
+        }
         self.sceneView.delegate = self
         self.sceneView.session.delegate = self
+        self.randobool = false
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -250,7 +293,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                     self.loadSession()
                 }
                 print(self.f16Object.position)
-              
+                
                 // Create a plane to visualize the initial position of the detected image.
                 let plane = SCNPlane(width: referenceImage.physicalSize.width,
                                      height: referenceImage.physicalSize.height)
