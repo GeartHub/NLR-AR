@@ -7,7 +7,7 @@
         <relationship name="node" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DamageNode" inverseName="coordinates" inverseEntity="DamageNode"/>
     </entity>
     <entity name="DamageNode" representedClassName="DamageNode" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="coordinates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Coordinates" inverseName="node" inverseEntity="Coordinates"/>
     </entity>
     <elements>

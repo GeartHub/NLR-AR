@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DA0D1E92247932AC005BBF60 /* Coordinates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */; };
 		DA0D1E93247932AC005BBF60 /* Coordinates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */; };
+		DA0DE10A247AFAC80085EE52 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */; };
 		DAAA4D832455AC45008A71CD /* PlaneSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */; };
 		DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC405DE244B707E00861A14 /* WelcomeViewController.swift */; };
 		DACE17612447A2F700872588 /* UVMap.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DACE175C2447A2F700872588 /* UVMap.pdf */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaneSelectionViewController.swift; sourceTree = "<group>"; };
 		DAC405DE244B707E00861A14 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		DACE175C2447A2F700872588 /* UVMap.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UVMap.pdf; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				DAC405DE244B707E00861A14 /* WelcomeViewController.swift */,
 				DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */,
 				DACF002B243645120080D201 /* AppDelegate.swift */,
+				DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */,
 				DACF002D243645120080D201 /* SceneDelegate.swift */,
 				DACF002F243645120080D201 /* ViewController.swift */,
 				DACE175B2447A2E600872588 /* Plane */,
@@ -314,6 +317,7 @@
 				DACF002C243645120080D201 /* AppDelegate.swift in Sources */,
 				DAAA4D832455AC45008A71CD /* PlaneSelectionViewController.swift in Sources */,
 				DAE2C31F24792A1B00B58E81 /* DamageNode+CoreDataClass.swift in Sources */,
+				DA0DE10A247AFAC80085EE52 /* CoreDataStack.swift in Sources */,
 				DACF002E243645120080D201 /* SceneDelegate.swift in Sources */,
 				DAE2C32024792A1B00B58E81 /* DamageNode+CoreDataProperties.swift in Sources */,
 				DAE2C31A247928C400B58E81 /* NLR_AR.xcdatamodeld in Sources */,

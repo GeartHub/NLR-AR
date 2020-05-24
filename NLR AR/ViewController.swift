@@ -25,10 +25,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     var f16Object: SCNNode!
     
-    var test: ARSCNView!
+    var hasAddedPlane: Bool = false
     
-    var randobool: Bool = false
+    var isAdding: Bool = false
     
+    let coreDataContext = CoreDataStack.instance.persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +59,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.sceneView.autoenablesDefaultLighting = true
         self.sceneView.automaticallyUpdatesLighting = true
         
-        // Setting the title to small
+        // Setting up the navigation
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Make new report", style: .plain, target: self, action: #selector(addTapped))
         
         // Styling the messageView
         self.messageView.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.5)
@@ -88,31 +90,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.f16Object.name = "F-16"
     }
     
-    @objc
-    func saveSession() {
-        
-        //        UserDefaults.standard.set(coordinates, forKey: "damageCoordinates")
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let damageNode = DamageNode.init(context: context)
-        let coordinatesToSave = Coordinates.init(context: context)
-        coordinatesToSave.x = coordinates[0]
-        coordinatesToSave.y = coordinates[1]
-        coordinatesToSave.z = coordinates[2]
-        
-        damageNode.coordinates = coordinatesToSave
-        
-        do {
-            try context.save()
-        } catch {
-            debugPrint(error)
-        }
-    }
-    
-    
     func registerGestureRecognizers() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinched))
@@ -120,29 +97,32 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.sceneView.addGestureRecognizer(pinchGestureRecognizer)
     }
     
-    func loadSession() {
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let context = appDelegate.persistentContainer.viewContext
+    @objc
+    func addTapped() {
+        isAdding.toggle()
+        navigationItem.rightBarButtonItem?.title = isAdding ? "Cancel" :"Make new report"
+    }
+    
+    @objc
+    func saveSession() {
+        debugPrint("Saving damage")
         do {
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "DamageNode")
-            let damageNodes = try context.fetch(fetchRequest) as! [DamageNode]
-            print(damageNodes)
+            try coreDataContext.save()
+        } catch {
+            debugPrint(error)
+        }
+    }
+    
+    func loadSession() {
+        do {
+            let damageNodes = try coreDataContext.fetch(DamageNode.fetchRequest()) as! [DamageNode]
             for damageNode in damageNodes {
-                print(damageNode.coordinates)
-                guard let coordinates = damageNode.coordinates else { return }
-                print(coordinates)
-                var loadedCoordinates: [Float] = []
-                loadedCoordinates.append(coordinates.x)
-                loadedCoordinates.append(coordinates.y)
-                loadedCoordinates.append(coordinates.z)
-                addDamage(at: loadedCoordinates)
+                addDamage(with: damageNode)
             }
             
         } catch {
             debugPrint(error)
         }
-        
     }
     
     /// Setup of the contraints fot this viewcontroller. This is the placement of the items.
@@ -184,20 +164,24 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     @objc
     func tapped(sender: UITapGestureRecognizer) {
         let tappedLocation = sender.location(in: sceneView)
-        if randobool == true {
-            if let hit = sceneView.hitTest(tappedLocation, options: nil).first {
-                if hit.node.name == "F-16" {
-                    var damageCoordinates: [Float] = []
-                    damageCoordinates.append(hit.localCoordinates.x)
-                    damageCoordinates.append(hit.localCoordinates.y)
-                    damageCoordinates.append(hit.localCoordinates.z)
-                    addDamage(at: damageCoordinates)
-                    debugPrint("Hit f-16")
+        if hasAddedPlane {
+            if isAdding {
+                if let hit = sceneView.hitTest(tappedLocation, options: nil).first {
+                    if hit.node.name == "F-16" {
+                        
+                        let damageNode = DamageNode.init(context: coreDataContext)
+                        var damageCoordinates = Coordinates.init(context: coreDataContext)
+                        
+                        damageCoordinates.x = hit.localCoordinates.x
+                        damageCoordinates.y = hit.localCoordinates.y
+                        damageCoordinates.z = hit.localCoordinates.z
+                        
+                        damageNode.coordinates = damageCoordinates
+                        addDamage(with: damageNode)
+                        debugPrint("Hit f-16")
+                    }
                 }
             }
-            
-            
-            
         } else {
             let hitTest = sceneView.hitTest(tappedLocation, types: .featurePoint)
             if !hitTest.isEmpty {
@@ -205,7 +189,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                 
                 loadSession()
                 
-                randobool = true
+                hasAddedPlane = true
                 
             } else {
                 print("nope")
@@ -226,18 +210,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         }
     }
     
-    func addDamage(at localCoordinates: [Float]) {
+    func addDamage(with damageNode: DamageNode) {
         
         let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.01))
         
-        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        cylinderNode.position = SCNVector3(localCoordinates[0], localCoordinates[1], localCoordinates[2])
-        cylinderNode.name = "damage"
+        guard let coordinates = damageNode.coordinates else { return }
         
-        coordinates.append(localCoordinates[0])
-        coordinates.append(localCoordinates[1])
-        coordinates.append(localCoordinates[2])
-        print(localCoordinates)
+        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        cylinderNode.position = SCNVector3(coordinates.x, coordinates.y, coordinates.z)
+        cylinderNode.name = "damage"
         
         self.sceneView.scene.rootNode.childNode(withName: "F-16", recursively: false)?.addChildNode(cylinderNode)
     }
@@ -258,13 +239,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             }
         })
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-        if randobool {
+        if hasAddedPlane {
             let resetCoordinates: [Float] = []
             UserDefaults.standard.set(resetCoordinates, forKey: "damageCoordinates")
         }
         self.sceneView.delegate = self
         self.sceneView.session.delegate = self
-        self.randobool = false
+        self.hasAddedPlane = false
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -287,7 +268,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                 print(anchor.transform.columns)
                 
                 
-                if self.randobool == true {
+                if self.hasAddedPlane == true {
                     node.addChildNode(self.f16Object)
                 } else {
                     self.loadSession()

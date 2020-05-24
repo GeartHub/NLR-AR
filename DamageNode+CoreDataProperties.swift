@@ -2,7 +2,7 @@
 //  DamageNode+CoreDataProperties.swift
 //  NLR AR
 //
-//  Created by Geart Otten on 23/05/2020.
+//  Created by Geart Otten on 24/05/2020.
 //  Copyright © 2020 Geart Otten. All rights reserved.
 //
 //
@@ -17,7 +17,7 @@ extension DamageNode {
         return NSFetchRequest<DamageNode>(entityName: "DamageNode")
     }
 
-    @NSManaged public var name: String?
+    @NSManaged public var title: String?
     @NSManaged public var coordinates: Coordinates?
 
 }
