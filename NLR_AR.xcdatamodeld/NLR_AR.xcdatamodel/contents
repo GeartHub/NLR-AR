@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Aircraft" representedClassName="Aircraft" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="damageNodes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DamageNode" inverseName="aircraft" inverseEntity="DamageNode"/>
+    </entity>
     <entity name="Coordinates" representedClassName="Coordinates" syncable="YES">
         <attribute name="x" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="y" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -7,11 +11,14 @@
         <relationship name="node" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DamageNode" inverseName="coordinates" inverseEntity="DamageNode"/>
     </entity>
     <entity name="DamageNode" representedClassName="DamageNode" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="aircraft" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Aircraft" inverseName="damageNodes" inverseEntity="Aircraft"/>
         <relationship name="coordinates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Coordinates" inverseName="node" inverseEntity="Coordinates"/>
     </entity>
     <elements>
+        <element name="Aircraft" positionX="-54" positionY="36" width="128" height="73"/>
         <element name="Coordinates" positionX="-63" positionY="9" width="128" height="103"/>
-        <element name="DamageNode" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="DamageNode" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>

@@ -2,7 +2,7 @@
 //  Coordinates+CoreDataProperties.swift
 //  NLR AR
 //
-//  Created by Geart Otten on 24/05/2020.
+//  Created by Geart Otten on 13/06/2020.
 //  Copyright © 2020 Geart Otten. All rights reserved.
 //
 //

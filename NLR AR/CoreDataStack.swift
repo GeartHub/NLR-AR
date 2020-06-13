@@ -40,7 +40,30 @@ class CoreDataStack {
         })
         return container
     }()
+    
+    var aircraftNames = ["F-35 - F001", "F-35 - F002", "F-35 - F003", "F-35 - F004"]
 
+    var fetchedAircrafts = [Aircraft]()
+    // MARK: - Core Data fetching Aircrafts
+    func fetchAircrafts(){
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Aircraft")
+        
+        do {
+            self.fetchedAircrafts = try persistentContainer.viewContext.fetch(fetchRequest) as! [Aircraft]
+            if self.fetchedAircrafts.isEmpty {
+                for aircraftName in aircraftNames {
+                    let aircraft = Aircraft(context: self.persistentContainer.viewContext)
+                    aircraft.name = aircraftName
+
+                    saveContext()
+                }
+                self.fetchAircrafts()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
     // MARK: - Core Data Saving support
 
     func saveContext () {

@@ -20,31 +20,30 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return planeArray.count
+        return CoreDataStack.instance.fetchedAircrafts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: planeCellId, for: indexPath)
         
-        cell.textLabel!.text = planeArray[indexPath.row]
+        cell.textLabel!.text = CoreDataStack.instance.fetchedAircrafts[indexPath.row].name
         cell.selectionStyle = .none
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goToMainView(title: planeArray[indexPath.row])
+        goToMainView(aircraft: CoreDataStack.instance.fetchedAircrafts[indexPath.row])
     }
     
     let planesTable = UITableView()
     
     let planeCellId = "PlaneCellId"
     
-    let planeArray = ["F-35 - F001", "F-35 - F002", "F-35 - F003", "F-35 - F004"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        CoreDataStack.instance.fetchAircrafts()
         // Setting the background color.
         self.view.backgroundColor = UIColor.black
         
@@ -72,9 +71,10 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
         setupConstraints()
     }
     
-    @objc func goToMainView(title: String) {
+    @objc func goToMainView(aircraft: Aircraft) {
         let viewController = ViewController()
-        viewController.title = title
+        viewController.title = aircraft.name
+        viewController.aircraft = aircraft
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 
