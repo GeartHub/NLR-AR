@@ -8,6 +8,7 @@
 
 import UIKit
 import ARKit
+import CoreData
 
 class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
@@ -18,15 +19,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     var messageLabel = UILabel()
     var resetButton = UIButton()
     var saveButton = UIButton()
+    var messageView = UIView()
+    
+    var coordinates: [Float] = []
     
     var f16Object: SCNNode!
     
-    var test: ARSCNView!
+    var hasAddedPlane: Bool = false
     
-    var randobool: Bool = false
+    var isAdding: Bool = false
+    var aircraft: Aircraft?
     
-    var messageView = UIView()
-    
+    let coreDataContext = CoreDataStack.instance.persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,15 +52,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.saveButton.setTitleColor(.systemBlue, for: .normal)
         self.saveButton.setTitle("Save", for: .normal)
         self.saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
-
+        
         // Setup of sceneView
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         self.sceneView.showsStatistics = true
         self.sceneView.autoenablesDefaultLighting = true
         self.sceneView.automaticallyUpdatesLighting = true
-      
-        // Setting the title to small
+        
+        // Setting up the navigation
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Make new report", style: .plain, target: self, action: #selector(addTapped))
         
         // Styling the messageView
         self.messageView.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.5)
@@ -81,37 +86,38 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         guard let f16Scene = SCNScene(named: "F-16D.scn") else { return }
         guard let f16Object = f16Scene.rootNode.childNode(withName: "Plane", recursively: true) else { return }
         self.f16Object = f16Object
-        self.f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
+        self.f16Object.scale = SCNVector3(0.2, 0.2, 0.2)
         self.f16Object.name = "F-16"
+    }
+    
+    func registerGestureRecognizers() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinched))
+        self.sceneView.addGestureRecognizer(tapGestureRecognizer)
+        self.sceneView.addGestureRecognizer(pinchGestureRecognizer)
+    }
+    
+    @objc
+    func addTapped() {
+        isAdding.toggle()
+        navigationItem.rightBarButtonItem?.title = isAdding ? "Cancel" : "Make new report"
     }
     
     @objc
     func saveSession() {
-        
-        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: sceneView.scene, requiringSecureCoding: false) {
-            let defaults = UserDefaults.standard
-            defaults.set(savedData, forKey: "SavedScene")
-            debugPrint("Saving plane")
+        debugPrint("Saving damage")
+        do {
+            try coreDataContext.save()
+        } catch {
+            debugPrint(error)
         }
-        
-    }
-    
-    
-    func registerGestureRecognizers() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        self.sceneView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func loadSession() {
-        let defaults = UserDefaults.standard
-        if let savedSession = defaults.object(forKey: "SavedScene") as? Data {
-            if let decodedSession = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedSession) as? SCNScene {
-                sceneView.scene = decodedSession
-            }
-        } else {
-            sceneView.scene.rootNode.addChildNode(f16Object)
+        guard let damageNodeArray = aircraft?.damageNodeArray else { return }
+        for damageNode in damageNodeArray {
+            addDamage(with: damageNode)
         }
-        
     }
     
     /// Setup of the contraints fot this viewcontroller. This is the placement of the items.
@@ -153,22 +159,34 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     @objc
     func tapped(sender: UITapGestureRecognizer) {
         let tappedLocation = sender.location(in: sceneView)
-        if randobool == true {
-            if let hit = sceneView.hitTest(tappedLocation, options: nil).first {
-                print(hit.node)
-                if hit.node.name == "F-16" {
-                    addDamage(hit: hit)
+        if hasAddedPlane {
+            if isAdding {
+                if let hit = sceneView.hitTest(tappedLocation, options: nil).first {
+                    if hit.node.name == "F-16" {
+                        
+                        let damageNode = DamageNode.init(context: coreDataContext)
+                        let damageCoordinates = Coordinates.init(context: coreDataContext)
+                        
+                        damageCoordinates.x = hit.localCoordinates.x
+                        damageCoordinates.y = hit.localCoordinates.y
+                        damageCoordinates.z = hit.localCoordinates.z
+                        
+                        damageNode.coordinates = damageCoordinates
+                        damageNode.createdAt = Date()
+                        damageNode.addToAircraft(aircraft ?? Aircraft())
+                        addDamage(with: damageNode)
+                        debugPrint("Hit f-16")
+                    }
                 }
             }
-            
-            
-            
         } else {
             let hitTest = sceneView.hitTest(tappedLocation, types: .featurePoint)
             if !hitTest.isEmpty {
+                sceneView.scene.rootNode.addChildNode(f16Object)
+                
                 loadSession()
                 
-                randobool = true
+                hasAddedPlane = true
                 
             } else {
                 print("nope")
@@ -176,16 +194,35 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         }
     }
     
-    func addDamage(hit: SCNHitTestResult) {
+    @objc
+    func pinched(sender: UIPinchGestureRecognizer) {
+        let pinchedLocation = sender.location(in: sceneView)
         
-        let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.01))
+        if let hit = sceneView.hitTest(pinchedLocation).first {
+            if hit.node.name == "damage" {
+                let pinchAction = SCNAction.scale(by: sender.scale, duration: 0)
+                hit.node.runAction(pinchAction)
+                sender.scale = 1.0
+            }
+        }
+    }
+    
+    func addDamage(with damage: DamageNode) {
         
-        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        cylinderNode.position = SCNVector3(hit.worldCoordinates.x, hit.worldCoordinates.y, hit.worldCoordinates.z)
-        cylinderNode.name = "damage"
+        let damagePlane = SCNPlane(width: 0.5, height: 0.5)
+        damagePlane.cornerRadius = 1
         
-        sceneView.scene.rootNode.addChildNode(cylinderNode)
+        let damageNode = SCNNode(geometry: damagePlane)
         
+        guard let coordinates = damage.coordinates else { return }
+        
+        damageNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        damageNode.position = SCNVector3(coordinates.x, coordinates.y, coordinates.z)
+        damageNode.eulerAngles.x = -.pi / 2
+        damageNode.name = "damage"
+        
+        
+        self.sceneView.scene.rootNode.childNode(withName: "F-16", recursively: false)?.addChildNode(damageNode)
     }
     
     /// This function restarts the AR session so everything is ready to go again.
@@ -204,8 +241,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             }
         })
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        if hasAddedPlane {
+            let resetCoordinates: [Float] = []
+            UserDefaults.standard.set(resetCoordinates, forKey: "damageCoordinates")
+        }
         self.sceneView.delegate = self
         self.sceneView.session.delegate = self
+        self.hasAddedPlane = false
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -228,13 +270,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                 print(anchor.transform.columns)
                 
                 
-                if self.randobool == true {
+                if self.hasAddedPlane == true {
                     node.addChildNode(self.f16Object)
                 } else {
                     self.loadSession()
                 }
                 print(self.f16Object.position)
-              
+                
                 // Create a plane to visualize the initial position of the detected image.
                 let plane = SCNPlane(width: referenceImage.physicalSize.width,
                                      height: referenceImage.physicalSize.height)
