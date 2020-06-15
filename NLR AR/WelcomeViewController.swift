@@ -42,8 +42,6 @@ class WelcomeViewController: UIViewController {
         self.continueButton.addTarget(self, action: #selector(goToMainView), for: .touchUpInside)
         self.continueButton.contentEdgeInsets = UIEdgeInsets(top: 20,left: 40,bottom: 20,right: 40)
         
-        
-        
         // navigation controller buttons
         // Adding items to the View
         view.addSubview(imageView)

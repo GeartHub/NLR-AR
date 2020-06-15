@@ -50,7 +50,7 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
         // Setting the title.
         self.title = "Aircrafts"
         // Prefers big title
-        navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         // Hiding the back button because we don't need to go back to welcome screen.
         self.navigationItem.setHidesBackButton(true, animated: true);
         
@@ -71,10 +71,9 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
         setupConstraints()
     }
     
-    @objc func goToMainView(aircraft: Aircraft) {
-        let viewController = ViewController()
-        viewController.title = aircraft.name
-        viewController.aircraft = aircraft
+    @objc func goToMainView(title: String) {
+        let viewController = TabBarController()
+        viewController.title = title
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 
