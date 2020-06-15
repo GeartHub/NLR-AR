@@ -9,6 +9,8 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+    
+    var aircraft: Aircraft?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +18,7 @@ class TabBarController: UITabBarController {
         let reportsViewController = PlaceholderViewController()
 
         let scanPlaneViewController = ViewController()
+        scanPlaneViewController.aircraft = aircraft
 
         let helpViewController = PlaceholderViewController()
 
