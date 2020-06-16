@@ -36,7 +36,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         // Autoresizing is the automatic contraints of Apple, we dont want that.
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +66,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         
         // Setting up the navigation
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Make new report", style: .plain, target: self, action: #selector(addTapped))
+        
         
         // Styling the messageView
         self.messageView.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.5)
@@ -90,11 +89,20 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         restartSession()
         setupConstraints()
         registerGestureRecognizers()
-        guard let f16Scene = SCNScene(named: "F-16D.scn") else { return }
-        guard let f16Object = f16Scene.rootNode.childNode(withName: "Plane", recursively: true) else { return }
+        guard let f16Scene = SCNScene(named: "fullsize.scn") else { return }
+        guard let f16Object = f16Scene.rootNode.childNode(withName: "F-16D", recursively: true) else { return }
         self.f16Object = f16Object
-        self.f16Object.scale = SCNVector3(0.2, 0.2, 0.2)
+        self.f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
         self.f16Object.name = "F-16"
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Make new report", style: .plain, target: self, action: #selector(addTapped))
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
     }
     
     func registerGestureRecognizers() {
@@ -116,7 +124,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     @objc
     func addTapped() {
         isAdding.toggle()
-        navigationItem.rightBarButtonItem?.title = isAdding ? "Cancel" : "Make new report"
+        self.tabBarController?.navigationItem.rightBarButtonItem?.title = isAdding ? "Cancel" : "Make new report"
     }
     
     @objc
@@ -183,20 +191,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         if hasAddedPlane {
             if isAdding {
                 if let hit = sceneView.hitTest(tappedLocation, options: nil).first {
-                    if hit.node.name == "F-16" {
-                        
-                        let damageNode = DamageNode.init(context: coreDataContext)
-                        let damageCoordinates = Coordinates.init(context: coreDataContext)
-                        
-                        damageCoordinates.x = hit.localCoordinates.x
-                        damageCoordinates.y = hit.localCoordinates.y
-                        damageCoordinates.z = hit.localCoordinates.z
-                        
-                        damageNode.coordinates = damageCoordinates
-                        damageNode.createdAt = Date()
-                        damageNode.addToAircraft(aircraft ?? Aircraft())
-                        addDamage(with: damageNode)
-                        debugPrint("Hit f-16")
+                    
+                    f16Object.enumerateChildNodes { (node, _) in
+                        if hit.node == node {
+
+                            let damageNode = DamageNode.init(context: coreDataContext)
+                            let damageCoordinates = Coordinates.init(context: coreDataContext)
+                            
+                            damageCoordinates.x = hit.localCoordinates.x
+                            damageCoordinates.y = hit.localCoordinates.y
+                            damageCoordinates.z = hit.localCoordinates.z
+                            
+                            damageNode.coordinates = damageCoordinates
+                            damageNode.createdAt = Date()
+                            damageNode.addToAircraft(aircraft ?? Aircraft())
+                            addDamage(with: damageNode)
+//                            debugPrint("Hit f-16")
+                        }
                     }
                 }
             }

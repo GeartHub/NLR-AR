@@ -72,9 +72,9 @@ class PlaneSelectionViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @objc func goToMainView(aircraft: Aircraft) {
-        let viewController = TabBarController()
+        let viewController = TabBarController(aircraft: aircraft)
         viewController.title = aircraft.name
-        viewController.aircraft = aircraft
+        
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 
