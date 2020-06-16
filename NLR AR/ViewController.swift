@@ -20,7 +20,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     var resetButton = UIButton()
     var saveButton = UIButton()
     var messageView = UIView()
-    var testButton = UIButton()
     
     var coordinates: [Float] = []
     
@@ -42,7 +41,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.messageView.translatesAutoresizingMaskIntoConstraints = false
         self.resetButton.translatesAutoresizingMaskIntoConstraints = false
         self.saveButton.translatesAutoresizingMaskIntoConstraints = false
-        self.testButton.translatesAutoresizingMaskIntoConstraints = false
       
         // Setup of resetButton
         self.resetButton.setTitleColor(.systemBlue, for: .normal)
@@ -53,10 +51,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.saveButton.setTitleColor(.systemBlue, for: .normal)
         self.saveButton.setTitle("Save", for: .normal)
         self.saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
-        
-        self.testButton.setTitleColor(.systemBlue, for: .normal)
-        self.testButton.setTitle("Test", for: .normal)
-        self.testButton.addTarget(self, action: #selector(testSession), for: .touchUpInside)
         
         // Setup of sceneView
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
@@ -83,7 +77,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         view.addSubview(resetButton)
         view.addSubview(saveButton)
         view.addSubview(messageView)
-        view.addSubview(testButton)
         messageView.addSubview(messageLabel)
         
         restartSession()
@@ -113,18 +106,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     }
     
     @objc
-    func testSession() {
+    func addTapped() {
+        isAdding.toggle()
+        self.tabBarController?.navigationItem.rightBarButtonItem?.title = isAdding ? "Cancel" : "Make new report"
+        
         let modalViewController = AddDamageViewController()
         modalViewController.modalPresentationStyle = .formSheet
         modalViewController.title = "Test"
         self.present(modalViewController, animated: true, completion: nil)
         modalViewController.preferredContentSize = CGSize(width: 500, height: 500)
-    }
-    
-    @objc
-    func addTapped() {
-        isAdding.toggle()
-        self.tabBarController?.navigationItem.rightBarButtonItem?.title = isAdding ? "Cancel" : "Make new report"
     }
     
     @objc
@@ -177,11 +167,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         NSLayoutConstraint.activate([
             saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             saveButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
-        ])
-        
-        NSLayoutConstraint.activate([
-            testButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            testButton.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
     }
     
