@@ -10,15 +10,20 @@
 		DA0D1E92247932AC005BBF60 /* Coordinates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */; };
 		DA0D1E93247932AC005BBF60 /* Coordinates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */; };
 		DA0DE10A247AFAC80085EE52 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */; };
+		DA3A56D7245EAF3E00252265 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56D6245EAF3E00252265 /* TabBarController.swift */; };
 		DA86A3A72494BEAA004F1E2B /* Aircraft+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86A3A52494BEAA004F1E2B /* Aircraft+CoreDataClass.swift */; };
 		DA86A3A82494BEAA004F1E2B /* Aircraft+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86A3A62494BEAA004F1E2B /* Aircraft+CoreDataProperties.swift */; };
-		DAAA4D832455AC45008A71CD /* PlaneSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */; };
-		DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC405DE244B707E00861A14 /* WelcomeViewController.swift */; };
-		DA3A56D7245EAF3E00252265 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56D6245EAF3E00252265 /* TabBarController.swift */; };
 		DA9644412470151800B53D39 /* PlaceholderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9644402470151800B53D39 /* PlaceholderViewController.swift */; };
+		DAAA4D832455AC45008A71CD /* PlaneSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */; };
+		DAAC6CF02498BE53004C68C2 /* Albedo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DAAC6CEC2498BE53004C68C2 /* Albedo.jpg */; };
+		DAAC6CF12498BE53004C68C2 /* fullsize.dae in Resources */ = {isa = PBXBuildFile; fileRef = DAAC6CED2498BE53004C68C2 /* fullsize.dae */; };
+		DAAC6CF22498BE53004C68C2 /* fullsize.mtl in Resources */ = {isa = PBXBuildFile; fileRef = DAAC6CEE2498BE53004C68C2 /* fullsize.mtl */; };
+		DAAC6CF32498BE53004C68C2 /* fullsize.obj in Resources */ = {isa = PBXBuildFile; fileRef = DAAC6CEF2498BE53004C68C2 /* fullsize.obj */; };
+		DAAC6CF52498BE79004C68C2 /* fullsize.scn in Resources */ = {isa = PBXBuildFile; fileRef = DAAC6CF42498BE79004C68C2 /* fullsize.scn */; };
+		DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC405DE244B707E00861A14 /* WelcomeViewController.swift */; };
 		DACE17612447A2F700872588 /* UVMap.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DACE175C2447A2F700872588 /* UVMap.pdf */; };
 		DACE17622447A2F700872588 /* Metallic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175D2447A2F700872588 /* Metallic.jpg */; };
-		DACE17632447A2F700872588 /* Albedo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175E2447A2F700872588 /* Albedo.jpg */; };
+		DACE17632447A2F700872588 /* Albedo2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175E2447A2F700872588 /* Albedo2.jpg */; };
 		DACE17642447A2F700872588 /* Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175F2447A2F700872588 /* Roughness.jpg */; };
 		DACE17652447A2F700872588 /* Normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE17602447A2F700872588 /* Normal.jpg */; };
 		DACE17672447A30100872588 /* F-16D.scn in Resources */ = {isa = PBXBuildFile; fileRef = DACE17662447A30100872588 /* F-16D.scn */; };
@@ -55,15 +60,20 @@
 		DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		DA3A56D6245EAF3E00252265 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DA86A3A52494BEAA004F1E2B /* Aircraft+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aircraft+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA86A3A62494BEAA004F1E2B /* Aircraft+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aircraft+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaneSelectionViewController.swift; sourceTree = "<group>"; };
-		DAC405DE244B707E00861A14 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		DA3A56D6245EAF3E00252265 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DA9644402470151800B53D39 /* PlaceholderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderViewController.swift; sourceTree = "<group>"; };
+		DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaneSelectionViewController.swift; sourceTree = "<group>"; };
+		DAAC6CEC2498BE53004C68C2 /* Albedo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Albedo.jpg; sourceTree = "<group>"; };
+		DAAC6CED2498BE53004C68C2 /* fullsize.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = fullsize.dae; sourceTree = "<group>"; };
+		DAAC6CEE2498BE53004C68C2 /* fullsize.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fullsize.mtl; sourceTree = "<group>"; };
+		DAAC6CEF2498BE53004C68C2 /* fullsize.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fullsize.obj; sourceTree = "<group>"; };
+		DAAC6CF42498BE79004C68C2 /* fullsize.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = fullsize.scn; sourceTree = "<group>"; };
+		DAC405DE244B707E00861A14 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		DACE175C2447A2F700872588 /* UVMap.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UVMap.pdf; sourceTree = "<group>"; };
 		DACE175D2447A2F700872588 /* Metallic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Metallic.jpg; sourceTree = "<group>"; };
-		DACE175E2447A2F700872588 /* Albedo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Albedo.jpg; sourceTree = "<group>"; };
+		DACE175E2447A2F700872588 /* Albedo2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Albedo2.jpg; sourceTree = "<group>"; };
 		DACE175F2447A2F700872588 /* Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Roughness.jpg; sourceTree = "<group>"; };
 		DACE17602447A2F700872588 /* Normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Normal.jpg; sourceTree = "<group>"; };
 		DACE17662447A30100872588 /* F-16D.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "F-16D.scn"; sourceTree = "<group>"; };
@@ -110,10 +120,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DAAC6CEB2498BE53004C68C2 /* fullsize */ = {
+			isa = PBXGroup;
+			children = (
+				DAAC6CEC2498BE53004C68C2 /* Albedo.jpg */,
+				DAAC6CED2498BE53004C68C2 /* fullsize.dae */,
+				DAAC6CF42498BE79004C68C2 /* fullsize.scn */,
+				DAAC6CEE2498BE53004C68C2 /* fullsize.mtl */,
+				DAAC6CEF2498BE53004C68C2 /* fullsize.obj */,
+			);
+			path = fullsize;
+			sourceTree = "<group>";
+		};
 		DACE175B2447A2E600872588 /* Plane */ = {
 			isa = PBXGroup;
 			children = (
-				DACE175E2447A2F700872588 /* Albedo.jpg */,
+				DACE175E2447A2F700872588 /* Albedo2.jpg */,
 				DACE175D2447A2F700872588 /* Metallic.jpg */,
 				DACE17602447A2F700872588 /* Normal.jpg */,
 				DACE175F2447A2F700872588 /* Roughness.jpg */,
@@ -163,6 +185,7 @@
 				DA9644402470151800B53D39 /* PlaceholderViewController.swift */,
 				DACE175B2447A2E600872588 /* Plane */,
 				DACF0037243645150080D201 /* Assets.xcassets */,
+				DAAC6CEB2498BE53004C68C2 /* fullsize */,
 				DACF0039243645150080D201 /* LaunchScreen.storyboard */,
 				DACF003C243645150080D201 /* Info.plist */,
 			);
@@ -292,12 +315,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DACE17642447A2F700872588 /* Roughness.jpg in Resources */,
+				DAAC6CF32498BE53004C68C2 /* fullsize.obj in Resources */,
 				DACE17672447A30100872588 /* F-16D.scn in Resources */,
 				DACF003B243645150080D201 /* LaunchScreen.storyboard in Resources */,
 				DACF0038243645150080D201 /* Assets.xcassets in Resources */,
+				DAAC6CF22498BE53004C68C2 /* fullsize.mtl in Resources */,
+				DAAC6CF02498BE53004C68C2 /* Albedo.jpg in Resources */,
+				DAAC6CF12498BE53004C68C2 /* fullsize.dae in Resources */,
 				DACE17622447A2F700872588 /* Metallic.jpg in Resources */,
 				DACE17652447A2F700872588 /* Normal.jpg in Resources */,
-				DACE17632447A2F700872588 /* Albedo.jpg in Resources */,
+				DACE17632447A2F700872588 /* Albedo2.jpg in Resources */,
+				DAAC6CF52498BE79004C68C2 /* fullsize.scn in Resources */,
 				DACE17612447A2F700872588 /* UVMap.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
