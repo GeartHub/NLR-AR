@@ -12,7 +12,7 @@ class AddDamageViewController: UIViewController {
     
     let descriptionContentView = UIView()
     let descriptionLabel = UILabel()
-    let descriptionField = UITextField(frame: CGRect(x: 10.0, y: 100.0, width: UIScreen.main.bounds.size.width, height: 50.0))
+    let descriptionField = UITextField()
     
     let titleLabel = UILabel()
     let titleField  = UITextField()
@@ -23,17 +23,17 @@ class AddDamageViewController: UIViewController {
         self.view.backgroundColor = UIColor.black
 
         // Autoresizing is the automatic contraints of Apple, we dont want that.
+        self.descriptionContentView.translatesAutoresizingMaskIntoConstraints = false
         self.descriptionField.translatesAutoresizingMaskIntoConstraints = false
         self.descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleField.translatesAutoresizingMaskIntoConstraints = false
-        self.descriptionField.translatesAutoresizingMaskIntoConstraints = false
-        
+
         // Description View
-        
+         self.descriptionContentView.backgroundColor = .systemGray6
         
         // Descriptionfield
-        self.descriptionField.backgroundColor = .systemGray6
+       
         self.descriptionField.placeholder = "Add a Description..."
         self.descriptionField.isUserInteractionEnabled = true
         
@@ -55,13 +55,20 @@ class AddDamageViewController: UIViewController {
         NSLayoutConstraint.activate([
             descriptionContentView.leftAnchor.constraint(equalTo: view.leftAnchor),
             descriptionContentView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            descriptionField.leadingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor)
-
+            descriptionContentView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
         ])
          NSLayoutConstraint.activate([
-            descriptionLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            descriptionLabel.widthAnchor.constraint(equalToConstant: 150)
+            descriptionLabel.leftAnchor.constraint(equalTo: descriptionContentView.leftAnchor),
+            descriptionLabel.widthAnchor.constraint(equalToConstant: 150),
+            descriptionLabel.topAnchor.constraint(equalTo: descriptionContentView.topAnchor, constant: 10),
+            descriptionLabel.bottomAnchor.constraint(equalTo: descriptionContentView.bottomAnchor, constant: -10)
          ])
+        NSLayoutConstraint.activate([
+           descriptionField.leftAnchor.constraint(equalTo: descriptionLabel.rightAnchor),
+           descriptionField.rightAnchor.constraint(equalTo: descriptionContentView.rightAnchor),
+           descriptionField.topAnchor.constraint(equalTo: descriptionContentView.topAnchor, constant: 10),
+           descriptionField.bottomAnchor.constraint(equalTo: descriptionContentView.bottomAnchor, constant: -10)
+        ])
     }
     
     // Setting the status bar to dark
