@@ -61,7 +61,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         // Setting up the navigation
         navigationController?.navigationBar.prefersLargeTitles = false
         
-        
         // Styling the messageView
         self.messageView.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.5)
         self.messageView.layer.masksToBounds = true
@@ -110,11 +109,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         isAdding.toggle()
         self.tabBarController?.navigationItem.rightBarButtonItem?.title = isAdding ? "Cancel" : "Make new report"
         
-        let modalViewController = AddDamageViewController()
+        let modalViewController = UINavigationController(rootViewController: AddDamageViewController())
         modalViewController.modalPresentationStyle = .formSheet
-        modalViewController.title = "Test"
         self.present(modalViewController, animated: true, completion: nil)
         modalViewController.preferredContentSize = CGSize(width: 500, height: 500)
+        
     }
     
     @objc
