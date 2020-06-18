@@ -41,7 +41,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         self.messageView.translatesAutoresizingMaskIntoConstraints = false
         self.resetButton.translatesAutoresizingMaskIntoConstraints = false
         self.saveButton.translatesAutoresizingMaskIntoConstraints = false
-        
+      
         // Setup of resetButton
         self.resetButton.setTitleColor(.systemBlue, for: .normal)
         self.resetButton.setTitle("Restart", for: .normal)
@@ -60,7 +60,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         
         // Setting up the navigation
         navigationController?.navigationBar.prefersLargeTitles = false
-        
         
         // Styling the messageView
         self.messageView.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.5)
@@ -109,6 +108,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     func addTapped() {
         isAdding.toggle()
         self.tabBarController?.navigationItem.rightBarButtonItem?.title = isAdding ? "Cancel" : "Make new report"
+        
+        let modalViewController = UINavigationController(rootViewController: AddDamageViewController())
+        modalViewController.modalPresentationStyle = .formSheet
+        self.present(modalViewController, animated: true, completion: nil)
+        modalViewController.preferredContentSize = CGSize(width: 500, height: 500)
+        
     }
     
     @objc
