@@ -39,13 +39,13 @@ class ReportSelectionViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (damageArray[section]?.count)!
+        return aircraft?.damageNodeArray.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: planeCellId, for: indexPath)
         
-        cell.textLabel!.text = damageArray[indexPath.section]?[indexPath.row]
+        cell.textLabel!.text = aircraft?.damageNodeArray[indexPath.row].title
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor.systemGray6
         
@@ -53,7 +53,7 @@ class ReportSelectionViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goToMainView(title: damageArray[indexPath.section]![indexPath.row])
+        goToMainView()
     }
 
     let planesTable = UITableView()
@@ -64,11 +64,11 @@ class ReportSelectionViewController: UIViewController, UITableViewDelegate, UITa
     
     let sectionFooterArray = [0 : "These small damages must all be repaired in the next periodic maintenance.", 1 : "These damages will be saved for further analysis."]
     
-    let damageArray = [0 : ["Issue #1", "Issue #2", "Issue #3", "Issue #4"], 1 : ["Damage #1", "Damage #2", "Damage #3", "Damage #4"]]
+    var aircraft : Aircraft?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            
         // Setting the background color.
         self.view.backgroundColor = UIColor.black
         
@@ -92,8 +92,8 @@ class ReportSelectionViewController: UIViewController, UITableViewDelegate, UITa
         setupConstraints()
     }
     
-    @objc func goToMainView(title: String) {
-        let viewController = TabBarController()
+    @objc func goToMainView() {
+        let viewController = PlaceholderViewController()
         viewController.title = title
         self.navigationController?.pushViewController(viewController, animated: true)
     }

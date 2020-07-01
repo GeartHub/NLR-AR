@@ -181,6 +181,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                             damageCoordinates.y = hit.localCoordinates.y
                             damageCoordinates.z = hit.localCoordinates.z
                             
+                            damageNode.title = "Issue #1"
                             damageNode.coordinates = damageCoordinates
                             damageNode.createdAt = Date()
                             damageNode.addToAircraft(aircraft ?? Aircraft())

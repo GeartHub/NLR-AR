@@ -25,6 +25,8 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
 
         let reportsViewController = ReportSelectionViewController()
+        
+        reportsViewController.aircraft = aircraft
 
         let scanPlaneViewController = ViewController()
         scanPlaneViewController.aircraft = aircraft
