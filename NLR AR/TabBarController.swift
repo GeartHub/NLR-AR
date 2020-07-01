@@ -9,6 +9,17 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+    
+    var aircraft: Aircraft?
+    
+    init(aircraft: Aircraft) {
+        self.aircraft = aircraft
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +27,7 @@ class TabBarController: UITabBarController {
         let reportsViewController = ReportSelectionViewController()
 
         let scanPlaneViewController = ViewController()
+        scanPlaneViewController.aircraft = aircraft
 
         let helpViewController = PlaceholderViewController()
 
@@ -30,12 +42,10 @@ class TabBarController: UITabBarController {
         self.navigationItem.largeTitleDisplayMode = .never
         
         self.viewControllers = [reportsViewController,scanPlaneViewController,helpViewController]
-        
 
         self.selectedViewController = scanPlaneViewController
         self.selectedIndex = 1
     }
-    
 
     /*
     // MARK: - Navigation
