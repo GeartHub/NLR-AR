@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		88DFDC8A24ACFF0A003E9695 /* DamageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DFDC8924ACFF0A003E9695 /* DamageViewController.swift */; };
 		DA0D1E92247932AC005BBF60 /* Coordinates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */; };
 		DA0D1E93247932AC005BBF60 /* Coordinates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */; };
 		DA0DE10A247AFAC80085EE52 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */; };
@@ -21,12 +22,6 @@
 		DAAC6CF32498BE53004C68C2 /* fullsize.obj in Resources */ = {isa = PBXBuildFile; fileRef = DAAC6CEF2498BE53004C68C2 /* fullsize.obj */; };
 		DAAC6CF52498BE79004C68C2 /* fullsize.scn in Resources */ = {isa = PBXBuildFile; fileRef = DAAC6CF42498BE79004C68C2 /* fullsize.scn */; };
 		DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC405DE244B707E00861A14 /* WelcomeViewController.swift */; };
-		DACE17612447A2F700872588 /* UVMap.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DACE175C2447A2F700872588 /* UVMap.pdf */; };
-		DACE17622447A2F700872588 /* Metallic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175D2447A2F700872588 /* Metallic.jpg */; };
-		DACE17632447A2F700872588 /* Albedo2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175E2447A2F700872588 /* Albedo2.jpg */; };
-		DACE17642447A2F700872588 /* Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE175F2447A2F700872588 /* Roughness.jpg */; };
-		DACE17652447A2F700872588 /* Normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DACE17602447A2F700872588 /* Normal.jpg */; };
-		DACE17672447A30100872588 /* F-16D.scn in Resources */ = {isa = PBXBuildFile; fileRef = DACE17662447A30100872588 /* F-16D.scn */; };
 		DACF002C243645120080D201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002B243645120080D201 /* AppDelegate.swift */; };
 		DACF002E243645120080D201 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002D243645120080D201 /* SceneDelegate.swift */; };
 		DACF0030243645120080D201 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF002F243645120080D201 /* ViewController.swift */; };
@@ -57,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		88DFDC8924ACFF0A003E9695 /* DamageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageViewController.swift; sourceTree = "<group>"; };
 		DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -71,12 +67,6 @@
 		DAAC6CEF2498BE53004C68C2 /* fullsize.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fullsize.obj; sourceTree = "<group>"; };
 		DAAC6CF42498BE79004C68C2 /* fullsize.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = fullsize.scn; sourceTree = "<group>"; };
 		DAC405DE244B707E00861A14 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		DACE175C2447A2F700872588 /* UVMap.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UVMap.pdf; sourceTree = "<group>"; };
-		DACE175D2447A2F700872588 /* Metallic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Metallic.jpg; sourceTree = "<group>"; };
-		DACE175E2447A2F700872588 /* Albedo2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Albedo2.jpg; sourceTree = "<group>"; };
-		DACE175F2447A2F700872588 /* Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Roughness.jpg; sourceTree = "<group>"; };
-		DACE17602447A2F700872588 /* Normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Normal.jpg; sourceTree = "<group>"; };
-		DACE17662447A30100872588 /* F-16D.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "F-16D.scn"; sourceTree = "<group>"; };
 		DACF0028243645120080D201 /* NLR AR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NLR AR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACF002B243645120080D201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DACF002D243645120080D201 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,19 +122,6 @@
 			path = fullsize;
 			sourceTree = "<group>";
 		};
-		DACE175B2447A2E600872588 /* Plane */ = {
-			isa = PBXGroup;
-			children = (
-				DACE175E2447A2F700872588 /* Albedo2.jpg */,
-				DACE175D2447A2F700872588 /* Metallic.jpg */,
-				DACE17602447A2F700872588 /* Normal.jpg */,
-				DACE175F2447A2F700872588 /* Roughness.jpg */,
-				DACE175C2447A2F700872588 /* UVMap.pdf */,
-				DACE17662447A30100872588 /* F-16D.scn */,
-			);
-			path = Plane;
-			sourceTree = "<group>";
-		};
 		DACF001F243645120080D201 = {
 			isa = PBXGroup;
 			children = (
@@ -179,11 +156,11 @@
 				DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */,
 				DACF002B243645120080D201 /* AppDelegate.swift */,
 				DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */,
+				88DFDC8924ACFF0A003E9695 /* DamageViewController.swift */,
 				DACF002D243645120080D201 /* SceneDelegate.swift */,
 				DACF002F243645120080D201 /* ViewController.swift */,
 				DA3A56D6245EAF3E00252265 /* TabBarController.swift */,
 				DA9644402470151800B53D39 /* PlaceholderViewController.swift */,
-				DACE175B2447A2E600872588 /* Plane */,
 				DACF0037243645150080D201 /* Assets.xcassets */,
 				DAAC6CEB2498BE53004C68C2 /* fullsize */,
 				DACF0039243645150080D201 /* LaunchScreen.storyboard */,
@@ -314,19 +291,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DACE17642447A2F700872588 /* Roughness.jpg in Resources */,
 				DAAC6CF32498BE53004C68C2 /* fullsize.obj in Resources */,
-				DACE17672447A30100872588 /* F-16D.scn in Resources */,
 				DACF003B243645150080D201 /* LaunchScreen.storyboard in Resources */,
 				DACF0038243645150080D201 /* Assets.xcassets in Resources */,
 				DAAC6CF22498BE53004C68C2 /* fullsize.mtl in Resources */,
 				DAAC6CF02498BE53004C68C2 /* Albedo.jpg in Resources */,
 				DAAC6CF12498BE53004C68C2 /* fullsize.dae in Resources */,
-				DACE17622447A2F700872588 /* Metallic.jpg in Resources */,
-				DACE17652447A2F700872588 /* Normal.jpg in Resources */,
-				DACE17632447A2F700872588 /* Albedo2.jpg in Resources */,
 				DAAC6CF52498BE79004C68C2 /* fullsize.scn in Resources */,
-				DACE17612447A2F700872588 /* UVMap.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +325,7 @@
 				DACF0030243645120080D201 /* ViewController.swift in Sources */,
 				DA0D1E92247932AC005BBF60 /* Coordinates+CoreDataClass.swift in Sources */,
 				DAC405DF244B707E00861A14 /* WelcomeViewController.swift in Sources */,
+				88DFDC8A24ACFF0A003E9695 /* DamageViewController.swift in Sources */,
 				DACF002C243645120080D201 /* AppDelegate.swift in Sources */,
 				DA9644412470151800B53D39 /* PlaceholderViewController.swift in Sources */,
 				DA3A56D7245EAF3E00252265 /* TabBarController.swift in Sources */,
@@ -531,14 +503,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7U2CF25QL7;
+				DEVELOPMENT_TEAM = 56RSAUGJH3;
 				INFOPLIST_FILE = "NLR AR/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.go.NLR-AR";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rs.NLR-AR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -550,14 +522,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7U2CF25QL7;
+				DEVELOPMENT_TEAM = 56RSAUGJH3;
 				INFOPLIST_FILE = "NLR AR/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.go.NLR-AR";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rs.NLR-AR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
