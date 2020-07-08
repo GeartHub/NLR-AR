@@ -29,6 +29,7 @@ class AddDamageViewController: UIViewController {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleField.translatesAutoresizingMaskIntoConstraints = false
 
+        self.title = "Add Damage"
         // Description View
          self.descriptionContentView.backgroundColor = .systemGray6
         

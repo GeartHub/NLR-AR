@@ -110,9 +110,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         isAdding.toggle()
         self.tabBarController?.navigationItem.rightBarButtonItem?.title = isAdding ? "Cancel" : "Make new report"
         
-        let modalViewController = AddDamageViewController()
+        let modalViewController = UINavigationController(rootViewController: AddDamageViewController())
         modalViewController.modalPresentationStyle = .formSheet
-        modalViewController.title = "Test"
         self.present(modalViewController, animated: true, completion: nil)
         modalViewController.preferredContentSize = CGSize(width: 500, height: 500)
     }
@@ -246,16 +245,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     @objc
     private func restartSession() {
         
-        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
+//        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
         guard let referenceObjects = ARReferenceObject.referenceObjects(inGroupNamed: "AR Resources", bundle: nil) else { return }
         
         let configuration = ARWorldTrackingConfiguration()
-        configuration.detectionImages = referenceImages
+//        configuration.detectionImages = referenceImages
         configuration.detectionObjects = referenceObjects
+        configuration.planeDetection = [.horizontal]
         self.sceneView.scene.rootNode.enumerateChildNodes({ (node, _) in
-            if node.name == "sphere" {
-                node.removeFromParentNode()
-            }
+            node.removeFromParentNode()
         })
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         if hasAddedPlane {
@@ -271,7 +269,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         var nameScannedObject = ""
         if let objectAchnor = anchor as? ARObjectAnchor {
             guard let objectName = objectAchnor.referenceObject.name else { return }
-            nameScannedObject = objectName
+            DispatchQueue.main.async {
+                self.messageLabel.text = objectName
+            }
+            f16Object.position = SCNVector3(objectAchnor.referenceObject.center.x, objectAchnor.referenceObject.center.y, objectAchnor.referenceObject.center.z)
+            f16Object.eulerAngles.x = 0
+            node.addChildNode(f16Object)
         }
         
         if let imageAnchor = anchor as? ARImageAnchor {

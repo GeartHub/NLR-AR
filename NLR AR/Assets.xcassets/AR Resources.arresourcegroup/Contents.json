@@ -5,10 +5,16 @@
   },
   "resources" : [
     {
-      "filename" : "Scan_11-47-20.arobject"
+      "filename" : "Deel lamp.arobject"
+    },
+    {
+      "filename" : "Stoel.arobject"
     },
     {
       "filename" : "Transformator.arreferenceimage"
+    },
+    {
+      "filename" : "Vergulde Hand.arobject"
     },
     {
       "filename" : "Windmill.arreferenceimage"
