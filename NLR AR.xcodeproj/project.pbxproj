@@ -12,6 +12,8 @@
 		DA0D1E93247932AC005BBF60 /* Coordinates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */; };
 		DA0DE10A247AFAC80085EE52 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */; };
 		DA3A56D7245EAF3E00252265 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56D6245EAF3E00252265 /* TabBarController.swift */; };
+		DA731CE824B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl in Resources */ = {isa = PBXBuildFile; fileRef = DA731CE724B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl */; };
+		DA731CEA24B86B0100BF3DFF /* NLR-Object.scn in Resources */ = {isa = PBXBuildFile; fileRef = DA731CE924B86B0100BF3DFF /* NLR-Object.scn */; };
 		DA86A3A72494BEAA004F1E2B /* Aircraft+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86A3A52494BEAA004F1E2B /* Aircraft+CoreDataClass.swift */; };
 		DA86A3A82494BEAA004F1E2B /* Aircraft+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86A3A62494BEAA004F1E2B /* Aircraft+CoreDataProperties.swift */; };
 		DA93242A2497A57B00CD219E /* ReportSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9324292497A57A00CD219E /* ReportSelectionViewController.swift */; };
@@ -58,6 +60,8 @@
 		DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		DA3A56D6245EAF3E00252265 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		DA731CE724B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl"; sourceTree = "<group>"; };
+		DA731CE924B86B0100BF3DFF /* NLR-Object.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "NLR-Object.scn"; sourceTree = "<group>"; };
 		DA86A3A52494BEAA004F1E2B /* Aircraft+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aircraft+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA86A3A62494BEAA004F1E2B /* Aircraft+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aircraft+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA9324292497A57A00CD219E /* ReportSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportSelectionViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +116,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA731CE624B86ADA00BF3DFF /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				DA731CE724B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl */,
+				DA731CE924B86B0100BF3DFF /* NLR-Object.scn */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
 		DAAC6CEB2498BE53004C68C2 /* fullsize */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +167,7 @@
 		DACF002A243645120080D201 /* NLR AR */ = {
 			isa = PBXGroup;
 			children = (
+				DA731CE624B86ADA00BF3DFF /* Object */,
 				DAC405DE244B707E00861A14 /* WelcomeViewController.swift */,
 				DAAA4D822455AC45008A71CD /* PlaneSelectionViewController.swift */,
 				DACF002B243645120080D201 /* AppDelegate.swift */,
@@ -301,6 +315,8 @@
 				DAAC6CF02498BE53004C68C2 /* Albedo.jpg in Resources */,
 				DAAC6CF12498BE53004C68C2 /* fullsize.dae in Resources */,
 				DAAC6CF52498BE79004C68C2 /* fullsize.scn in Resources */,
+				DA731CE824B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl in Resources */,
+				DA731CEA24B86B0100BF3DFF /* NLR-Object.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,7 +523,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 56RSAUGJH3;
+				DEVELOPMENT_TEAM = 7U2CF25QL7;
 				INFOPLIST_FILE = "NLR AR/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -526,7 +542,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 56RSAUGJH3;
+				DEVELOPMENT_TEAM = 7U2CF25QL7;
 				INFOPLIST_FILE = "NLR AR/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -25,6 +25,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     var f16Object: SCNNode!
     
+    var otherObject: SCNNode!
+    
     var hasAddedPlane: Bool = false
     
     var isAdding: Bool = false
@@ -82,6 +84,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         restartSession()
         setupConstraints()
         registerGestureRecognizers()
+        
+        guard let objectScene = SCNScene(named: "NLR-Object.scn") else { return }
+        guard let objectNode = objectScene.rootNode.childNode(withName: "CATIA", recursively: false) else { return }
+        otherObject = objectNode
+        self.otherObject.scale = SCNVector3(0.00125, 0.00125, 0.00125)
+        
         guard let f16Scene = SCNScene(named: "fullsize.scn") else { return }
         guard let f16Object = f16Scene.rootNode.childNode(withName: "F-16D", recursively: true) else { return }
         self.f16Object = f16Object
@@ -241,11 +249,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     @objc
     private func restartSession() {
         
-        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
+//        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
         guard let referenceObjects = ARReferenceObject.referenceObjects(inGroupNamed: "AR Resources", bundle: nil) else { return }
         
         let configuration = ARWorldTrackingConfiguration()
-        configuration.detectionImages = referenceImages
+//        configuration.detectionImages = referenceImages
         configuration.detectionObjects = referenceObjects
         self.sceneView.scene.rootNode.enumerateChildNodes({ (node, _) in
             if node.name == "sphere" {
@@ -266,7 +274,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         var nameScannedObject = ""
         if let objectAchnor = anchor as? ARObjectAnchor {
             guard let objectName = objectAchnor.referenceObject.name else { return }
-            nameScannedObject = objectName
+             DispatchQueue.main.async {
+                self.messageLabel.text = ("Detected object “\(objectName)”")
+            }
+            otherObject.position = SCNVector3(objectAchnor.referenceObject.center.x, objectAchnor.referenceObject.center.y, objectAchnor.referenceObject.center.z)
+            node.addChildNode(otherObject)
         }
         
         if let imageAnchor = anchor as? ARImageAnchor {
