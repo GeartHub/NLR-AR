@@ -53,7 +53,7 @@ class ReportSelectionViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goToMainView()
+        goToMainView(reportID: aircraft?.damageNodeArray[indexPath.row].title ?? "")
     }
 
     let planesTable = UITableView()
@@ -92,9 +92,9 @@ class ReportSelectionViewController: UIViewController, UITableViewDelegate, UITa
         setupConstraints()
     }
     
-    @objc func goToMainView() {
+    @objc func goToMainView(reportID: String) {
         let viewController = PlaceholderViewController()
-        viewController.title = title
+        viewController.title = reportID
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 

@@ -27,6 +27,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     var otherObject: SCNNode!
     
+    var coffeeMugNode: SCNNode!
+    
     var hasAddedPlane: Bool = false
     
     var isAdding: Bool = false
@@ -90,8 +92,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         otherObject = objectNode
         self.otherObject.scale = SCNVector3(0.00125, 0.00125, 0.00125)
         
-        guard let f16Scene = SCNScene(named: "fullsize.scn") else { return }
-        guard let f16Object = f16Scene.rootNode.childNode(withName: "F-16D", recursively: true) else { return }
+        guard let coffeeMug = SCNScene(named: "mugblack.scn") else { return }
+        guard let coffeeMugNode = coffeeMug.rootNode.childNode(withName: "Plane_Material", recursively: false) else { return }
+        self.coffeeMugNode = coffeeMugNode
+        self.coffeeMugNode .scale = SCNVector3(0.03, 0.03, 0.03)
+        
+        guard let f16Scene = SCNScene(named: "wing_spoiler.dae") else { return }
+        guard let f16Object = f16Scene.rootNode.childNode(withName: "wing_spoiler", recursively: true) else { return }
         self.f16Object = f16Object
         self.f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
         self.f16Object.name = "F-16"
@@ -189,7 +196,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                             damageCoordinates.y = hit.localCoordinates.y
                             damageCoordinates.z = hit.localCoordinates.z
                             
-                            damageNode.title = "Issue #1"
+                            damageNode.title = "Issue #\(aircraft?.damageNodeArray.count ?? 1 + 1)"
                             damageNode.coordinates = damageCoordinates
                             damageNode.createdAt = Date()
                             damageNode.addToAircraft(aircraft ?? Aircraft())
@@ -241,7 +248,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         damageNode.eulerAngles.x = -.pi / 2
         damageNode.name = "damage"
         
-        
         self.sceneView.scene.rootNode.childNode(withName: "F-16", recursively: false)?.addChildNode(damageNode)
     }
     
@@ -277,8 +283,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
              DispatchQueue.main.async {
                 self.messageLabel.text = ("Detected object “\(objectName)”")
             }
-            otherObject.position = SCNVector3(objectAchnor.referenceObject.center.x, objectAchnor.referenceObject.center.y, objectAchnor.referenceObject.center.z)
-            node.addChildNode(otherObject)
+            coffeeMugNode.position = SCNVector3(objectAchnor.referenceObject.center.x, objectAchnor.referenceObject.center.y, objectAchnor.referenceObject.center.z)
+            node.addChildNode(coffeeMugNode)
         }
         
         if let imageAnchor = anchor as? ARImageAnchor {

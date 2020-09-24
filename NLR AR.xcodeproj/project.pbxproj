@@ -11,9 +11,11 @@
 		DA0D1E92247932AC005BBF60 /* Coordinates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */; };
 		DA0D1E93247932AC005BBF60 /* Coordinates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */; };
 		DA0DE10A247AFAC80085EE52 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */; };
+		DA1F7E25251CA0750052C20D /* wing_spoiler.dae in Resources */ = {isa = PBXBuildFile; fileRef = DA1F7E24251CA0750052C20D /* wing_spoiler.dae */; };
 		DA3A56D7245EAF3E00252265 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56D6245EAF3E00252265 /* TabBarController.swift */; };
 		DA731CE824B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl in Resources */ = {isa = PBXBuildFile; fileRef = DA731CE724B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl */; };
 		DA731CEA24B86B0100BF3DFF /* NLR-Object.scn in Resources */ = {isa = PBXBuildFile; fileRef = DA731CE924B86B0100BF3DFF /* NLR-Object.scn */; };
+		DA79990D251C922800DDADEE /* AR_object.dae in Resources */ = {isa = PBXBuildFile; fileRef = DA79990C251C922800DDADEE /* AR_object.dae */; };
 		DA86A3A72494BEAA004F1E2B /* Aircraft+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86A3A52494BEAA004F1E2B /* Aircraft+CoreDataClass.swift */; };
 		DA86A3A82494BEAA004F1E2B /* Aircraft+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86A3A62494BEAA004F1E2B /* Aircraft+CoreDataProperties.swift */; };
 		DA93242A2497A57B00CD219E /* ReportSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9324292497A57A00CD219E /* ReportSelectionViewController.swift */; };
@@ -35,6 +37,9 @@
 		DAE2C31A247928C400B58E81 /* NLR_AR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAE2C318247928C400B58E81 /* NLR_AR.xcdatamodeld */; };
 		DAE2C31F24792A1B00B58E81 /* DamageNode+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE2C31B24792A1B00B58E81 /* DamageNode+CoreDataClass.swift */; };
 		DAE2C32024792A1B00B58E81 /* DamageNode+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE2C31C24792A1B00B58E81 /* DamageNode+CoreDataProperties.swift */; };
+		DAE505CA250655C10084D9C6 /* mugblack.obj in Resources */ = {isa = PBXBuildFile; fileRef = DAE505C8250655C00084D9C6 /* mugblack.obj */; };
+		DAE505CB250655C10084D9C6 /* mugblack.stl in Resources */ = {isa = PBXBuildFile; fileRef = DAE505C9250655C10084D9C6 /* mugblack.stl */; };
+		DAE505CD250655E20084D9C6 /* mugblack.scn in Resources */ = {isa = PBXBuildFile; fileRef = DAE505CC250655E20084D9C6 /* mugblack.scn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,9 +64,11 @@
 		DA0D1E90247932AC005BBF60 /* Coordinates+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA0D1E91247932AC005BBF60 /* Coordinates+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinates+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA0DE109247AFAC80085EE52 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		DA1F7E24251CA0750052C20D /* wing_spoiler.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = wing_spoiler.dae; sourceTree = "<group>"; };
 		DA3A56D6245EAF3E00252265 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DA731CE724B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl"; sourceTree = "<group>"; };
 		DA731CE924B86B0100BF3DFF /* NLR-Object.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "NLR-Object.scn"; sourceTree = "<group>"; };
+		DA79990C251C922800DDADEE /* AR_object.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = AR_object.dae; sourceTree = "<group>"; };
 		DA86A3A52494BEAA004F1E2B /* Aircraft+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aircraft+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA86A3A62494BEAA004F1E2B /* Aircraft+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aircraft+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA9324292497A57A00CD219E /* ReportSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportSelectionViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +96,9 @@
 		DAE2C319247928C400B58E81 /* NLR_AR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NLR_AR.xcdatamodel; sourceTree = "<group>"; };
 		DAE2C31B24792A1B00B58E81 /* DamageNode+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DamageNode+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DAE2C31C24792A1B00B58E81 /* DamageNode+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DamageNode+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DAE505C8250655C00084D9C6 /* mugblack.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mugblack.obj; sourceTree = "<group>"; };
+		DAE505C9250655C10084D9C6 /* mugblack.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = mugblack.stl; sourceTree = "<group>"; };
+		DAE505CC250655E20084D9C6 /* mugblack.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = mugblack.scn; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,10 +129,22 @@
 		DA731CE624B86ADA00BF3DFF /* Object */ = {
 			isa = PBXGroup;
 			children = (
+				DAE505C8250655C00084D9C6 /* mugblack.obj */,
+				DAE505CC250655E20084D9C6 /* mugblack.scn */,
+				DAE505C9250655C10084D9C6 /* mugblack.stl */,
 				DA731CE724B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl */,
 				DA731CE924B86B0100BF3DFF /* NLR-Object.scn */,
 			);
 			path = Object;
+			sourceTree = "<group>";
+		};
+		DA79990B251C921500DDADEE /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				DA1F7E24251CA0750052C20D /* wing_spoiler.dae */,
+				DA79990C251C922800DDADEE /* AR_object.dae */,
+			);
+			path = Item;
 			sourceTree = "<group>";
 		};
 		DAAC6CEB2498BE53004C68C2 /* fullsize */ = {
@@ -179,6 +201,7 @@
 				DA3A56D6245EAF3E00252265 /* TabBarController.swift */,
 				DA9644402470151800B53D39 /* PlaceholderViewController.swift */,
 				DACF0037243645150080D201 /* Assets.xcassets */,
+				DA79990B251C921500DDADEE /* Item */,
 				DAAC6CEB2498BE53004C68C2 /* fullsize */,
 				DACF0039243645150080D201 /* LaunchScreen.storyboard */,
 				DACF003C243645150080D201 /* Info.plist */,
@@ -310,13 +333,18 @@
 			files = (
 				DAAC6CF32498BE53004C68C2 /* fullsize.obj in Resources */,
 				DACF003B243645150080D201 /* LaunchScreen.storyboard in Resources */,
+				DA1F7E25251CA0750052C20D /* wing_spoiler.dae in Resources */,
 				DACF0038243645150080D201 /* Assets.xcassets in Resources */,
 				DAAC6CF22498BE53004C68C2 /* fullsize.mtl in Resources */,
+				DAE505CD250655E20084D9C6 /* mugblack.scn in Resources */,
 				DAAC6CF02498BE53004C68C2 /* Albedo.jpg in Resources */,
+				DAE505CA250655C10084D9C6 /* mugblack.obj in Resources */,
 				DAAC6CF12498BE53004C68C2 /* fullsize.dae in Resources */,
+				DAE505CB250655C10084D9C6 /* mugblack.stl in Resources */,
 				DAAC6CF52498BE79004C68C2 /* fullsize.scn in Resources */,
 				DA731CE824B86AF000BF3DFF /* 4263_dp01_AM-ladderbracket_revA0_161207_machine_offset.stl in Resources */,
 				DA731CEA24B86B0100BF3DFF /* NLR-Object.scn in Resources */,
+				DA79990D251C922800DDADEE /* AR_object.dae in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,7 +15,7 @@ class PlaceholderViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        messageLabel.text = "Hier komt iets"
+        messageLabel.text = title
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(messageLabel)
         // Do any additional setup after loading the view.
