@@ -25,6 +25,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     var f16Object: SCNNode!
     
+    var otherObject: SCNNode!
+    
+    var coffeeMugNode: SCNNode!
+    
     var hasAddedPlane: Bool = false
     
     var isAdding: Bool = false
@@ -82,8 +86,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         restartSession()
         setupConstraints()
         registerGestureRecognizers()
-        guard let f16Scene = SCNScene(named: "fullsize.scn") else { return }
-        guard let f16Object = f16Scene.rootNode.childNode(withName: "F-16D", recursively: true) else { return }
+        
+        guard let objectScene = SCNScene(named: "NLR-Object.scn") else { return }
+        guard let objectNode = objectScene.rootNode.childNode(withName: "CATIA", recursively: false) else { return }
+        otherObject = objectNode
+        self.otherObject.scale = SCNVector3(0.00125, 0.00125, 0.00125)
+        
+        guard let coffeeMug = SCNScene(named: "mugblack.scn") else { return }
+        guard let coffeeMugNode = coffeeMug.rootNode.childNode(withName: "Plane_Material", recursively: false) else { return }
+        self.coffeeMugNode = coffeeMugNode
+        self.coffeeMugNode .scale = SCNVector3(0.03, 0.03, 0.03)
+        
+        guard let f16Scene = SCNScene(named: "wing_spoiler.dae") else { return }
+        guard let f16Object = f16Scene.rootNode.childNode(withName: "wing_spoiler", recursively: true) else { return }
         self.f16Object = f16Object
         self.f16Object.scale = SCNVector3(0.1, 0.1, 0.1)
         self.f16Object.name = "F-16"
@@ -181,6 +196,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
                             damageCoordinates.y = hit.localCoordinates.y
                             damageCoordinates.z = hit.localCoordinates.z
                             
+                            damageNode.title = "Issue #\(aircraft?.damageNodeArray.count ?? 1 + 1)"
                             damageNode.coordinates = damageCoordinates
                             damageNode.createdAt = Date()
                             damageNode.addToAircraft(aircraft ?? Aircraft())
@@ -232,7 +248,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         damageNode.eulerAngles.x = -.pi / 2
         damageNode.name = "damage"
         
-        
         self.sceneView.scene.rootNode.childNode(withName: "F-16", recursively: false)?.addChildNode(damageNode)
     }
     
@@ -240,11 +255,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     @objc
     private func restartSession() {
         
-        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
+//        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
         guard let referenceObjects = ARReferenceObject.referenceObjects(inGroupNamed: "AR Resources", bundle: nil) else { return }
         
         let configuration = ARWorldTrackingConfiguration()
-        configuration.detectionImages = referenceImages
+//        configuration.detectionImages = referenceImages
         configuration.detectionObjects = referenceObjects
         self.sceneView.scene.rootNode.enumerateChildNodes({ (node, _) in
             if node.name == "sphere" {
@@ -265,7 +280,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         var nameScannedObject = ""
         if let objectAchnor = anchor as? ARObjectAnchor {
             guard let objectName = objectAchnor.referenceObject.name else { return }
-            nameScannedObject = objectName
+             DispatchQueue.main.async {
+                self.messageLabel.text = ("Detected object “\(objectName)”")
+            }
+            coffeeMugNode.position = SCNVector3(objectAchnor.referenceObject.center.x, objectAchnor.referenceObject.center.y, objectAchnor.referenceObject.center.z)
+            node.addChildNode(coffeeMugNode)
         }
         
         if let imageAnchor = anchor as? ARImageAnchor {

@@ -12,6 +12,8 @@ class TabBarController: UITabBarController {
     
     var aircraft: Aircraft?
     
+    let reportsViewController = ReportSelectionViewController()
+    
     init(aircraft: Aircraft) {
         self.aircraft = aircraft
         super.init(nibName: nil, bundle: nil)
@@ -24,7 +26,9 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let reportsViewController = PlaceholderViewController()
+        self.delegate = self
+        
+        reportsViewController.aircraft = aircraft
 
         let scanPlaneViewController = ViewController()
         scanPlaneViewController.aircraft = aircraft
@@ -57,4 +61,13 @@ class TabBarController: UITabBarController {
     }
     */
 
+}
+
+extension TabBarController: UITabBarControllerDelegate {
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.title == "Reports" {
+            self.aircraft = CoreDataStack.instance.fetchedAircrafts.first(where: { $0.name == aircraft?.name})
+            reportsViewController.aircraft = aircraft
+        }
+    }
 }
